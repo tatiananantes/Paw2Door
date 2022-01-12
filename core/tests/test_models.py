@@ -1,0 +1,39 @@
+from django.test import TestCase
+
+# Create your tests here.
+from ..models import Shelter
+
+class ShelterModelTest(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        Shelter.objects.create(name="Pet Shelter", email="pete@petshelter.com", password="supersecret123", phone_number="0000000000")
+
+    def test_name_label(self):
+        shelter = Shelter.objects.get(id=1)
+        field_label = shelter._meta.get_field('name').verbose_name
+        self.assertEqual(field_label, 'name')
+
+    def test_password_label(self):
+        shelter = Shelter.objects.get(id=1)
+        field_label = shelter._meta.get_field('password').verbose_name
+        self.assertEqual(field_label, 'password')
+        
+    def test_email_label(self):
+        shelter = Shelter.objects.get(id=1)
+        field_label = shelter._meta.get_field('email').verbose_name
+        self.assertEqual(field_label, 'email')
+    
+    def test_phone_label(self):
+        shelter = Shelter.objects.get(id=1)
+        field_label = shelter._meta.get_field('phone_number').verbose_name
+        self.assertEqual(field_label, 'phone number')
+
+    def test_password_max_length(self):
+        shelter = Shelter.objects.get(id=1)
+        max_length = shelter._meta.get_field('password').max_length
+        self.assertEqual(max_length, 50)
+
+    def test_name_max_length(self):
+        shelter = Shelter.objects.get(id=1)
+        max_length = shelter._meta.get_field('name').max_length
+        self.assertEqual(max_length, 100)
