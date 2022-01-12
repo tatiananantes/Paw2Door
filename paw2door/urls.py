@@ -14,13 +14,19 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from core.views import front, shelter, pet
+from django.urls import path, include
+from rest_framework import routers, views
+from core import views
+from core.views import front
 
+router = routers.DefaultRouter()
+router.register(r'shelter', views.ShelterView, 'shelter')
+router.register(r'pet', views.PetView, 'pet')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', include(router.urls)),
     path("", front, name="front"),
-    path("shelter/", shelter, name="shelter"),
-    path("pet/", pet, name="pet"),
+    # path("shelter/", shelter, name="shelter"),
+    # path("pet/", pet, name="pet"),
 ]
