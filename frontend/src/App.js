@@ -69,7 +69,7 @@ class App extends Component {
         >
           {item.name}
         </span>
-        <span>
+        {/* <span>
           <button
             className="btn btn-secondary mr-2"
           >
@@ -80,7 +80,7 @@ class App extends Component {
           >
             Delete
           </button>
-        </span>
+        </span> */}
       </li>
     ));
   };
@@ -117,13 +117,5 @@ class App extends Component {
     );
   }
 }
-
-
-
-
-
-
-
-
 
 export default App;
