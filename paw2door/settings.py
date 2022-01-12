@@ -40,11 +40,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
-    'rest_framework',
+    'rest_framework', 
     'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -54,6 +55,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'paw2door.urls'
 
@@ -130,7 +133,10 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'frontend', 'build', 'static')]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
+
+MEDIA_URL = '/images/'
+
 CORS_ORIGIN_WHITELIST = [
      'http://localhost:3000'
 ]
-
