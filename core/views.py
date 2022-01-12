@@ -1,18 +1,27 @@
 from django.http import request
 from django.shortcuts import render
-from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework import status
-from rest_framework.parsers import MultiPartParser, FormParser
+from django.db.models.query import QuerySet
+from rest_framework import status, viewsets
 from .serializers import ShelterSerializer, PetSerializer
 from .models import Shelter, Pet
-from rest_framework.views import APIView
+#from rest_framework.parsers import MultiPartParser, FormParser
+#from rest_framework.views import APIView
 
 # Create your views here.
 def front(request):
     context = { }
     return render(request, "index.html", context)
 
+class ShelterView(viewsets.ModelViewSet):
+    serializer_class = ShelterSerializer
+    queryset = Shelter.objects.all()
+
+class PetView(viewsets.ModelViewSet):
+    serializer_class = PetSerializer
+    queryset = Pet.objects.all()
+
+"""
 class ShelterView(APIView):
     parser_classes = (MultiPartParser, FormParser)
 
@@ -46,3 +55,4 @@ class PetView(APIView):
         else:
             print('error', serializer.errors)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+"""
