@@ -2,13 +2,13 @@ import React, { Component } from "react";
 import '../App.css';
 import axios from "axios";
 
-class ShelterDetails extends Component {
+class MyPets extends Component {
   render() {
     return (
-      <p>Hello from Shelter Details</p>
+      <p>Hello from My Pets (lits of pets for this shelter)</p>
     )
 };
 
 };
 
-export default ShelterDetails;
+export default MyPets;

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import '../App.css';
-import Modal from "./Modal";
 import axios from "axios";
 
 class LoginForm extends Component {
@@ -12,4 +11,4 @@ class LoginForm extends Component {
   
   };
 
-  export default LoginForm;
+export default LoginForm;

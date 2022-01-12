@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import '../App.css';
-import Modal from "./Modal";
+import SignUpFormModal from "./SignUpFormModal";
 import axios from "axios";
 
 class SignUpForm extends Component {
@@ -106,7 +106,7 @@ class SignUpForm extends Component {
           </div>
         </div>
         {this.state.modal ? (
-          <Modal
+          <SignUpFormModal
             activeItem={this.state.activeItem}
             toggle={this.toggle}
             onSave={this.handleSubmit}
