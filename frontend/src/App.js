@@ -1,6 +1,7 @@
 import './App.css';
 
 import React, { Component } from "react";
+import Modal from "./components/Modal";
 
 const shelterItems = [
   {
@@ -24,8 +25,32 @@ class App extends Component {
     super(props);
     this.state = {
       shelterList: shelterItems,
+      modal: false,
+      activeItem: {
+        name: "",
+        email: "",
+        password: "",
+        phone_number: "",
+      },
     };
   }
+
+  toggle = () => {
+    this.setState({ modal: !this.state.modal });
+  };
+
+  handleSubmit = (item) => {
+    this.toggle();
+
+    alert("save" + JSON.stringify(item));
+  };
+
+  createItem = () => {
+    const item = { name: "", email: "", password: "", phone_number: "" };
+
+    this.setState({ activeItem: item, modal: !this.state.modal });
+  };
+
   renderItems = () => {
     const newItems = this.state.shelterList;
 
@@ -65,7 +90,8 @@ class App extends Component {
             <div className="card p-3">
               <div className="mb-4">
                 <button
-                  className="btn btn-primary"
+                  className="btn btn-primary" 
+                  onClick={this.createItem}
                 >
                   Add Shelter
                 </button>
@@ -76,6 +102,13 @@ class App extends Component {
             </div>
           </div>
         </div>
+        {this.state.modal ? (
+          <Modal
+            activeItem={this.state.activeItem}
+            toggle={this.toggle}
+            onSave={this.handleSubmit}
+          />
+        ) : null}
       </main>
     );
   }
