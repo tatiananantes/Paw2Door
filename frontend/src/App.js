@@ -2,29 +2,13 @@ import './App.css';
 
 import React, { Component } from "react";
 import Modal from "./components/Modal";
-
-const shelterItems = [
-  {
-    "id": 1,
-    "name": "Shelter",
-    "email": "shelter@mail.com",
-    "password": "password",
-    "phone_number": "12345678"
-  },
-  {
-    "id": 2,
-    "name": "Peterborough Animal Shelter",
-    "email": "pas@example.com",
-    "password": "saveanimals123",
-    "phone_number": "01733 000000"
-  }
-]
+import axios from "axios";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      shelterList: shelterItems,
+      shelterList: [],
       modal: false,
       activeItem: {
         name: "",
@@ -35,6 +19,18 @@ class App extends Component {
     };
   }
 
+
+  componentDidMount() {
+    this.refreshList();
+  }
+
+  refreshList = () => {
+    axios
+      .get("/api/shelter/")
+      .then((res) => this.setState({ shelterList: res.data }))
+      .catch((err) => console.log(err));
+  };
+
   toggle = () => {
     this.setState({ modal: !this.state.modal });
   };
@@ -42,7 +38,15 @@ class App extends Component {
   handleSubmit = (item) => {
     this.toggle();
 
-    alert("save" + JSON.stringify(item));
+    if (item.id) {
+      axios
+        .put(`/api/shelter/${item.id}/`, item)
+        .then((res) => this.refreshList());
+      return;
+    }
+    axios
+      .post("/api/shelter/", item)
+      .then((res) => this.refreshList());
   };
 
   createItem = () => {
