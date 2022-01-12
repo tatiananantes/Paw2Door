@@ -4,6 +4,9 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
 import Modal from "./components/Modal";
 import axios from "axios";
 import SignUp from './components/pages/SignUp'
+import Login from './components/pages/Login'
+import Pets from './components/pages/Pets'
+import Shelter from './components/pages/Shelter'
 
 class App extends Component {
   render() {
@@ -11,8 +14,10 @@ class App extends Component {
       <>
       <Router>
         <Routes>
-            <Route path='/' element={<SignUp/>} />
+            <Route path='/' element={<Pets/>} />
             <Route path='/signup' element={<SignUp/>} />
+            <Route path='/login' element={<Login/>} />
+            <Route path='/shelter/:id' element={<Shelter/>} />
         </Routes>
       </Router>
       </>
