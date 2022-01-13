@@ -12,7 +12,7 @@ class MyPets extends Component {
       activeItem: {
         shelter: "",
         name: "",
-        image: ""
+        image: null,
       },
     };
   }
@@ -47,7 +47,7 @@ class MyPets extends Component {
   };
 
   createItem = () => {
-    const item = { shelter: "", name: "", image: "" };
+    const item = { shelter: "", name: "", image: null };
 
     this.setState({ activeItem: item, modal: !this.state.modal });
   };

@@ -4,37 +4,23 @@ import '../App.css';
 const ShowPets = () => {
   const [pets, setData] = useState([]);
 
-  useEffect(() => {
+  const addPet = () => {
     const url = "http://localhost:8000/api/pet/";
-
-    const fetchData = async () => {
-      try {
-        const response = await fetch(url);
-        const json = await response.json();
-        setData(json);
-      } catch (error) {
-        console.log("error", error);
-      }
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json'},
+      body: JSON.stringify({ name: 'mittens', shelter: '1' })
+      };
+      fetch(url, requestOptions)
+        .then(response => response.json())
+        .then(json => json.data)
     };
-
-    fetchData();
-  }, []);
+    
+  addPet()
 
   return (
     <div className='all-pets'>
-      <div className='row'>
-        {pets.map((pet, index) => (
-          <div className='pet col-sm-4' key={pet.id}>
-            <div className='object-wrap'>
-              {pet.image == null 
-                ? <img src='http://localhost:8000/images/paw.png' className="img-fluid"></img>
-                : <img src={pet.image} className="img-fluid img-sizer"></img>
-              }
-            </div>
-            <p className='name'>{pet.name}</p>
-          </div>
-        ))}
-      </div>
+
 
     </div>
   )

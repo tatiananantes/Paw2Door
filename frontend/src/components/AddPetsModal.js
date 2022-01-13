@@ -20,16 +20,28 @@ export default class AddPetsModal extends Component {
   }
 
   handleChange = (e) => {
+    
     let { name, value } = e.target;
 
-    if (e.target.type === "checkbox") {
-      value = e.target.checked;
+    if (e.target.type === "file") {
+      value = e.target.files[0]
     }
 
     const activeItem = {...this.state.activeItem, [name]: value};
+    console.log("----------")
+    console.log(activeItem)
 
     this.setState({ activeItem })
   };
+
+  // handleChange = async (event) => {
+  //   event.preventDefault();
+  //   await this.setState({
+  //     // [event.target.name]: event.target.files[0]
+  //     image: event.target.files[0]
+  //     // image: event.target.files[0]
+  //   });
+  // };
 
   render() {
     const { toggle, onSave } = this.props;
@@ -66,7 +78,6 @@ export default class AddPetsModal extends Component {
                 type="file"
                 id="image"
                 name="image"
-                value={this.state.activeItem.image}
                 onChange={this.handleChange}
                 placeholder="Please enter an image of the animal"
               />
