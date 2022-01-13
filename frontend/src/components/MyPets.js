@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import '../App.css';
 import axios from "axios";
+import AddPets from "./AddPets";
 
 export default class MyPets extends Component {
   constructor(props) {

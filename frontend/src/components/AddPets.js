@@ -13,10 +13,14 @@ import axios from "axios";
 
 export default class AddPets extends Component {
 
-  state = {
-    title: '',
-    content: '',
-    image: null
+  constructor(props) {
+    super(props);
+    this.state = {
+      title: '',
+      content: '',
+      image: null,
+      isModalOpen: true
+    };
   };
 
   handleChange = (e) => {
@@ -33,6 +37,7 @@ export default class AddPets extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    this.toggle();
     console.log(this.state);
     let form_data = new FormData();
     form_data.append('image', this.state.image, this.state.image.name);
@@ -55,41 +60,46 @@ export default class AddPets extends Component {
     const { toggle, onSave } = this.props;
   
     return (
-      <Modal isOpen={true} toggle={toggle}>
-        <ModalHeader toggle={toggle}>Add Animal to Shelter</ModalHeader>
-        <ModalBody>
-          <Form onSubmit={this.handleSubmit}>
-            <FormGroup>
-              <Label for="name">Name</Label>
-              <Input
-                type="text"
-                id="name"
-                name="name"
-                value={this.state.name} 
-                onChange={this.handleChange}
-                placeholder="Enter the name of the animal"
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for="image">Image</Label>
-              <Input
-                type="file"
-                id="image"
-                name="image"
-                accept="image/png, image/jpeg"  
-                onChange={this.handleImageChange}
-                placeholder="Please enter an image of the animal"
-              />
-            </FormGroup>
-            <Button
-            color="success"
-            type="submit"
-          >
-            Save
-          </Button>
-          </Form>
-        </ModalBody>
-      </Modal>
+      <div>
+        <button className="btn btn-primary" onClick={this.toggle}>
+          Add a pet
+        </button>
+        <Modal isOpen={this.state.isModalOpen} toggle={this.toggle}>
+          <ModalHeader toggle={toggle}>Add Animal to Shelter</ModalHeader>
+          <ModalBody>
+            <Form onSubmit={this.handleSubmit}>
+              <FormGroup>
+                <Label for="name">Name</Label>
+                <Input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={this.state.name} 
+                  onChange={this.handleChange}
+                  placeholder="Enter the name of the animal"
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label for="image">Image</Label>
+                <Input
+                  type="file"
+                  id="image"
+                  name="image"
+                  accept="image/png, image/jpeg"  
+                  onChange={this.handleImageChange}
+                  placeholder="Please enter an image of the animal"
+                />
+              </FormGroup>
+              <Button
+              color="success"
+              type="submit"
+              >
+              Save
+            </Button>
+            </Form>
+          </ModalBody>
+        </Modal>
+      </div>
     );
   }
 }
