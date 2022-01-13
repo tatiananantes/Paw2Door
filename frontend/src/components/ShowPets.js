@@ -21,13 +21,21 @@ const ShowPets = () => {
   }, []);
 
   return (
-    <div className='all_pets'>
-      {pets.map((pet, index) => (
-        <div className='pet' key={pet.id}>
-          <p className='name'>{pet.name}</p>
-          <br></br>
-        </div>
-      ))}
+    <div className='all-pets'>
+      <div className='row'>
+        {pets.map((pet, index) => (
+          <div className='pet col-sm-4' key={pet.id}>
+            <div className='object-wrap'>
+              {pet.image == null 
+                ? <img src='http://localhost:8000/images/paw.png' className="img-fluid"></img>
+                : <img src={pet.image} className="img-fluid img-sizer"></img>
+              }
+            </div>
+            <p className='name'>{pet.name}</p>
+          </div>
+        ))}
+      </div>
+
     </div>
   )
 };
