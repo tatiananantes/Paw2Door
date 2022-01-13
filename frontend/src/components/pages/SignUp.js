@@ -5,9 +5,7 @@ import SignUpForm from '../SignUpForm';
 
 function SignUp() {
   return (
-    <>
       <SignUpForm />
-    </>
   );
 };
 

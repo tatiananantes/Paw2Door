@@ -5,9 +5,7 @@ import ShowPets from '../ShowPets';
 
 function Pets() {
   return (
-    <>
       <ShowPets />
-    </>
   );
 };
 
