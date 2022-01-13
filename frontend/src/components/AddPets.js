@@ -10,6 +10,8 @@ import {
   Label,
 } from "reactstrap";
 import axios from "axios";
+import MyPets from "./MyPets";
+
 
 export default class AddPets extends Component {
 
@@ -19,7 +21,7 @@ export default class AddPets extends Component {
       title: '',
       content: '',
       image: null,
-      isModalOpen: true
+      isModalOpen: false
     };
   };
 
@@ -35,6 +37,10 @@ export default class AddPets extends Component {
     })
   };
 
+  toggle = () => {
+    this.setState({ isModalOpen: !this.state.isModalOpen });
+  };
+
   handleSubmit = (e) => {
     e.preventDefault();
     this.toggle();
@@ -45,6 +51,7 @@ export default class AddPets extends Component {
     form_data.append('shelter', '1');
     console.log(form_data)
     let url = 'http://localhost:8000/api/pet/';
+    
     axios.post(url, form_data, {
       headers: {
         'content-type': 'multipart/form-data'
@@ -54,6 +61,7 @@ export default class AddPets extends Component {
           console.log(res.data);
         })
         .catch(err => console.log(err))
+      MyPets.prototype.componentDidMount()
   };
 
   render() {
@@ -99,6 +107,7 @@ export default class AddPets extends Component {
             </Form>
           </ModalBody>
         </Modal>
+        <MyPets />
       </div>
     );
   }

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import '../App.css';
 import axios from "axios";
-import AddPets from "./AddPets";
 
 export default class MyPets extends Component {
   constructor(props) {
@@ -52,7 +51,7 @@ export default class MyPets extends Component {
     return (
       <div className='all-pets'>
         <div className='row'>
-         {this.renderItems()}
+        {this.renderItems()}
         </div>
       </div>
     );
