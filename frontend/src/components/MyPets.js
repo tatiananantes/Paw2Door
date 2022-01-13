@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import '../App.css';
-import AddPetsModal from "./AddPetsModal";
 import axios from "axios";
 
-class MyPets extends Component {
+export default class MyPets extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -32,26 +31,6 @@ class MyPets extends Component {
     this.setState({ modal: !this.state.modal });
   };
 
-  handleSubmit = (item) => {
-    this.toggle();
-
-    if (item.id) {
-      axios
-        .put(`/api/pet/${item.id}/`, item)
-        .then((res) => this.refreshList());
-      return;
-    }
-    axios
-      .post("/api/pet/", item)
-      .then((res) => this.refreshList());
-  };
-
-  createItem = () => {
-    const item = { shelter: "", name: "", image: null };
-
-    this.setState({ activeItem: item, modal: !this.state.modal });
-  };
-
   renderItems = () => {
     const newItems = this.state.myPetList;
 
@@ -71,26 +50,11 @@ class MyPets extends Component {
   render() {
     return (
       <div className='all-pets'>
-        <button
-          className="btn btn-primary" 
-          onClick={this.createItem}
-        >
-          Add Pet
-        </button>
         <div className='row'>
          {this.renderItems()}
         </div>
-        {this.state.modal ? (
-          <AddPetsModal
-            activeItem={this.state.activeItem}
-            toggle={this.toggle}
-            onSave={this.handleSubmit}
-          />
-        ) : null}
       </div>
     );
   }
 
 };
-
-export default MyPets;
