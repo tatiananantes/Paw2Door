@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { connect } from 'react-redux';
 import {
   Button,
   Modal,
@@ -14,7 +13,7 @@ import axios from "axios";
 import MyPets from "./MyPets";
 
 
-class AddPets extends Component {
+export default class AddPets extends Component {
 
   constructor(props) {
     super(props);
@@ -113,9 +112,3 @@ class AddPets extends Component {
     );
   }
 }
-
-const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
-});
-
-export default connect(mapStateToProps)(AddPets);

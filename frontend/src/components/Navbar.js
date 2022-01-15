@@ -16,11 +16,9 @@ const Navbar = ({ logout, isAuthenticated }) => {
   );
 
   const authLinks = () => (
-    <div>
-      <li className="nav-item">
-          <a className="nav-link" href="#!" onClick={logout}>Logout</a>
-      </li>
-    </div>
+    <li className="nav-item">
+        <a className="nav-link" href="#!" onClick={logout}>Logout</a>
+    </li>
   );
 
   return (
@@ -44,7 +42,7 @@ const Navbar = ({ logout, isAuthenticated }) => {
 };
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated,
+  isAuthenticated: state.auth.isAuthenticated
 });
 
 export default connect(mapStateToProps, { logout })(Navbar);
