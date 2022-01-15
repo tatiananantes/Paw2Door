@@ -18,24 +18,22 @@ from django.urls import path, include, re_path
 from django.views.generic import TemplateView
 from django.conf import settings
 from django.conf.urls.static import static
-from rest_framework import routers, views
+from rest_framework import routers
 from core import views
 from core.views import front
 
 router = routers.DefaultRouter()
-router.register(r'shelter', views.ShelterView, 'shelter')
-router.register(r'pet', views.PetView, 'pet')
+router.register(r'shelter', views.shelter, 'shelter')
+router.register(r'pet', views.pet, 'pet')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(router.urls)),
+    path('api/', include('core.urls')),
     path("", front, name="front"),
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.jwt')),
 ]
 
 urlpatterns += [re_path(r'^.*', TemplateView.as_view(template_name='index.html'))]
-
-#path('api/', include('core.urls')),
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
