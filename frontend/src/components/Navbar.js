@@ -6,7 +6,13 @@ import { connect, useSelector } from 'react-redux'
 const Navbar = () => {
 
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
-
+  const user = useSelector(state => {
+    if(state.auth.isAuthenticated) {
+        return state.auth.user.id
+    }
+    return null;
+ })
+ 
   const guestLinks = () => (
     <Fragment>
        <li className="nav-item">
@@ -14,6 +20,9 @@ const Navbar = () => {
        </li>
         <li className="nav-item">
           <Link className="nav-link" to="/signup">Sign up</Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link" to="/signup">{JSON.stringify(user)}</Link>
         </li>
     </Fragment>
   );
@@ -26,6 +35,9 @@ const Navbar = () => {
       <li className="nav-item">
           <a className="nav-link" href=''>My Shelter</a>
       </li>
+      <li className="nav-item">
+          <Link className="nav-link" to="/signup">{JSON.stringify(user)}</Link>
+        </li>
     </Fragment>
   );
 
