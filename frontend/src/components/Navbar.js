@@ -1,9 +1,11 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { logout } from '../actions/auth';
-import { connect } from 'react-redux'
+import { connect, useSelector } from 'react-redux'
 
-const Navbar = ({ logout, isAuthenticated, user }) => {
+const Navbar = () => {
+
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
 
   const guestLinks = () => (
     <Fragment>
@@ -22,10 +24,9 @@ const Navbar = ({ logout, isAuthenticated, user }) => {
           <a className="nav-link" href="#!" onClick={logout}>Logout</a>
       </li>
       <li className="nav-item">
-          <a className="nav-link" href={user}>My Shelter</a>
+          <a className="nav-link" href=''>My Shelter</a>
       </li>
     </Fragment>
-
   );
 
   return (
@@ -48,9 +49,9 @@ const Navbar = ({ logout, isAuthenticated, user }) => {
   );
 };
 
-const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated,
-  user: state.auth.user
-});
+// const mapStateToProps = state => ({
+//   isAuthenticated: state.auth.isAuthenticated,
+//   user: state.auth.user
+// });
 
-export default connect(mapStateToProps, { logout })(Navbar);
+export default Navbar;
