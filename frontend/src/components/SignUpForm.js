@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import '../App.css';
 import SignUpFormModal from "./SignUpFormModal";
 import axios from "axios";
+import { login } from "../actions/auth";
 
 class SignUpForm extends Component {
 
@@ -14,6 +15,7 @@ class SignUpForm extends Component {
         name: "",
         email: "",
         password: "",
+        re_password: "",
         phone_number: "",
       },
     };
@@ -25,7 +27,7 @@ class SignUpForm extends Component {
 
   refreshList = () => {
     axios
-      .get("/api/shelter/")
+      .get("/api/shelter/find/")
       .then((res) => this.setState({ shelterList: res.data }))
       .catch((err) => console.log(err));
   };
@@ -39,17 +41,19 @@ class SignUpForm extends Component {
 
     if (item.id) {
       axios
-        .put(`/api/shelter/${item.id}/`, item)
+        .put(`/auth/users/${item.id}/`, item)
         .then((res) => this.refreshList());
       return;
     }
     axios
-      .post("/api/shelter/", item)
+      .post("/auth/users/", item)
       .then((res) => this.refreshList());
+
+    login(this.state.email, this.state.password)
   };
 
   createItem = () => {
-    const item = { name: "", email: "", password: "", phone_number: "" };
+    const item = { name: "", email: "", password: "", re_password: "", phone_number: "" };
 
     this.setState({ activeItem: item, modal: !this.state.modal });
   };

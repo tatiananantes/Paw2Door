@@ -17,20 +17,16 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from rest_framework import routers, views
-from core import views
-from core.views import front
-
-router = routers.DefaultRouter()
-router.register(r'shelter', views.ShelterView, 'shelter')
-router.register(r'pet', views.PetView, 'pet')
+from core.views import front, shelter, pet
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(router.urls)),
     path("", front, name="front"),
+    path("shelter/", shelter, name="shelter"),
+    path("pet/", pet, name="pet"),
+    path('api/', include('core.urls')),
+    path('auth/', include('djoser.urls')),
+    path('auth/', include('djoser.urls.jwt')),
 ]
-
-#path('api/', include('core.urls')),
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -22,6 +22,7 @@ const ShowPets = () => {
 
   return (
     <div className='all-pets'>
+      <h1>Pets avaialble for adoption</h1>
       <div className='row'>
         {pets.map((pet, index) => (
           <div className='pet col-sm-4' key={pet.id}>

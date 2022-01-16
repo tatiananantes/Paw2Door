@@ -73,6 +73,17 @@ export default class CustomModal extends Component {
               />
             </FormGroup>
             <FormGroup>
+              <Label for="shelter-re-password">Re-enter Password</Label>
+              <Input
+                type="text"
+                id="shelter-re-password"
+                name="re_password"
+                value={this.state.activeItem.re_password}
+                onChange={this.handleChange}
+                placeholder="Please enter a password"
+              />
+            </FormGroup>
+            <FormGroup>
               <Label for="shelter-phone_number">Phone Number</Label>
               <Input
                 type="text"
