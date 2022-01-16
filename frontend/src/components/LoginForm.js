@@ -1,8 +1,7 @@
 import React, { Component, useState } from "react";
 import { Link, Navigate } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useSelector, connect } from 'react-redux';
 import { login } from '../actions/auth';
-
 import '../App.css';
 import axios from "axios";
 
@@ -22,7 +21,7 @@ const LoginForm = ({ login, isAuthenticated }) => {
     login(email, password);
   };
 
-  if (isAuthenticated) {
+  if (useSelector(state => state.auth.isAuthenticated)) {
     return <Navigate to='/'/>
   }
 

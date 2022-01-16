@@ -1,18 +1,12 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { logout } from '../actions/auth';
-import { connect, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 const Navbar = () => {
 
-  const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
-  const user = useSelector(state => {
-    if(state.auth.isAuthenticated) {
-        return state.auth.user.id
-    }
-    return null;
- })
- 
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated) 
+
   const guestLinks = () => (
     <Fragment>
        <li className="nav-item">
@@ -22,7 +16,7 @@ const Navbar = () => {
           <Link className="nav-link" to="/signup">Sign up</Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to="/signup">{JSON.stringify(user)}</Link>
+          <Link className="nav-link" to="/signup">{JSON.stringify()}</Link>
         </li>
     </Fragment>
   );
@@ -33,10 +27,10 @@ const Navbar = () => {
           <a className="nav-link" href="#!" onClick={logout}>Logout</a>
       </li>
       <li className="nav-item">
-          <a className="nav-link" href=''>My Shelter</a>
+          <a className="nav-link" href={`/shelter/${localStorage.getItem('userId')}`}>My Shelter</a>
       </li>
       <li className="nav-item">
-          <Link className="nav-link" to="/signup">{JSON.stringify(user)}</Link>
+          <Link className="nav-link" to="/signup">{JSON.stringify()}</Link>
         </li>
     </Fragment>
   );
@@ -60,10 +54,5 @@ const Navbar = () => {
     </nav>
   );
 };
-
-// const mapStateToProps = state => ({
-//   isAuthenticated: state.auth.isAuthenticated,
-//   user: state.auth.user
-// });
 
 export default Navbar;
