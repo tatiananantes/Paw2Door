@@ -1,7 +1,7 @@
 import React, {useEffect, useState } from "react";
 import '../App.css';
 
-const ShelterDetails = () => {
+const PetShelterDetails = (shelterID) => {
   const [shelters, setData] = useState([]);
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const ShelterDetails = () => {
     <div className='all-shelters'>
       <div className='row'>
         {shelters.map((shelter, index) => {
-          if (String(shelter.id) == String(window.location.href.match(/\/([^\/]+)\/?$/)[1])) {
+          if (String(shelter.id) == String(shelterID)) {
           return (
           <div className='shelter col-sm-4' key={shelter.id}>
             <p className='name'>Name: {shelter.name}</p>
@@ -38,4 +38,4 @@ const ShelterDetails = () => {
   )
 };
 
-export default ShelterDetails;
+export default PetShelterDetails;

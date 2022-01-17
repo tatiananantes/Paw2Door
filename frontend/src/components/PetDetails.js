@@ -1,5 +1,6 @@
 import React, {useEffect, useState } from "react";
 import '../App.css';
+import PetShelterDetails from './PetShelterDetails'
 
 const PetDetails = () => {
   const [pets, setData] = useState([]);
@@ -22,7 +23,6 @@ const PetDetails = () => {
 
   return (
     <div className='all-pets'>
-      <h1>Pets avaialble for adoption</h1>
       <div className='row'>
         {pets.map((pet, index) => {
           if (String(pet.id) == String(window.location.href.match(/\/([^\/]+)\/?$/)[1])) {
@@ -32,15 +32,19 @@ const PetDetails = () => {
               {pet.image == null 
                 ? <img src='http://localhost:8000/images/paw.png' className="img-fluid"></img>
                 : <img src={pet.image} className="img-fluid img-sizer"></img>
-              }
+              } 
+               <p> {PetShelterDetails(pet.shelter)} </p>
             </div>
             <p className='name'>{pet.name}</p>
+           
           </div>
         )}}
         )}
       </div>
     </div>
+  
   )
+
 };
 
 export default PetDetails;
