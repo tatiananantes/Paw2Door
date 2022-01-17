@@ -25,8 +25,6 @@ const PetDetails = () => {
       <h1>Pets avaialble for adoption</h1>
       <div className='row'>
         {pets.map((pet, index) => {
-          console.log(pet.id)
-          console.log(window.location.href.match(/\/([^\/]+)\/?$/)[1])
           if (String(pet.id) == String(window.location.href.match(/\/([^\/]+)\/?$/)[1])) {
           return (
           <div className='pet col-sm-4' key={pet.id}>
