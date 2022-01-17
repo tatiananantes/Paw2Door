@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
+import React, {useEffect, useState } from "react";
 import '../App.css';
 
-const ShowPets = () => {
+const PetDetails = () => {
   const [pets, setData] = useState([]);
 
   useEffect(() => {
@@ -25,7 +24,11 @@ const ShowPets = () => {
     <div className='all-pets'>
       <h1>Pets avaialble for adoption</h1>
       <div className='row'>
-        {pets.map((pet, index) => (
+        {pets.map((pet, index) => {
+          console.log(pet.id)
+          console.log(window.location.href.match(/\/([^\/]+)\/?$/)[1])
+          if (String(pet.id) == String(window.location.href.match(/\/([^\/]+)\/?$/)[1])) {
+          return (
           <div className='pet col-sm-4' key={pet.id}>
             <div className='object-wrap'>
               {pet.image == null 
@@ -33,13 +36,13 @@ const ShowPets = () => {
                 : <img src={pet.image} className="img-fluid img-sizer"></img>
               }
             </div>
-            <Link to={`/pet/${pet.id}`} className='name'>{pet.name}</Link>
+            <p className='name'>{pet.name}</p>
           </div>
-        ))}
+        )}}
+        )}
       </div>
-
     </div>
   )
 };
 
-export default ShowPets;
+export default PetDetails;

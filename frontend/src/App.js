@@ -6,6 +6,7 @@ import Login from './components/pages/Login';
 import Activate from './components/pages/Activate';
 import Pets from './components/pages/Pets';
 import Shelter from './components/pages/Shelter';
+import PetProfile from './components/pages/PetProfile';
 import Navbar from './components/Navbar';
 import { Provider } from 'react-redux';
 import store from './store';
@@ -22,6 +23,7 @@ const App = () => (
             <Route path='/login' element={<Login/>} />
             <Route path='/activate/:uid/:token' element={<Activate/>} />
             <Route path='/shelter/:id' element={<Shelter/>} />
+            <Route path='/pet/:id' element={<PetProfile/>} />
           </Routes>
       </Layout>
     </Router>
