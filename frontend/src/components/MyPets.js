@@ -35,7 +35,7 @@ export default class MyPets extends Component {
     const newItems = this.state.myPetList;
 
     return newItems.map((item) => {
-      if (localStorage.getItem('userId') == item.shelter) {
+      if (String(item.shelter) == String(window.location.href.match(/\/([^\/]+)\/?$/)[1])) {
         return (
         <div className='pet col-sm-4' key={item.id}>
           <div className='object-wrap'>

@@ -65,7 +65,8 @@ export default class AddPets extends Component {
 
   render() {
     const { toggle, onSave } = this.props;
-  
+    
+    if (localStorage.getItem('userId')) {
     return (
       <div>
         <button className="btn btn-primary" onClick={this.toggle}>
@@ -108,6 +109,8 @@ export default class AddPets extends Component {
         </Modal>
         <MyPets />
       </div>
-    );
+    )} else {
+      return(<MyPets />)
+    };
   }
 }
