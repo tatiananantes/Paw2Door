@@ -34,17 +34,21 @@ export default class MyPets extends Component {
   renderItems = () => {
     const newItems = this.state.myPetList;
 
-    return newItems.map((item) => (
-      <div className='pet col-sm-4' key={item.id}>
-        <div className='object-wrap'>
-          {item.image == null 
-            ? <img src='http://localhost:8000/images/paw.png' className="img-fluid"></img>
-            : <img src={item.image} className="img-fluid img-sizer"></img>
-          }
+    return newItems.map((item) => {
+      if (localStorage.getItem('userId') == item.shelter) {
+        return (
+        <div className='pet col-sm-4' key={item.id}>
+          <div className='object-wrap'>
+            {item.image == null 
+             ? <img src='http://localhost:8000/images/paw.png' className="img-fluid"></img>
+             : <img src={item.image} className="img-fluid img-sizer"></img>
+            }
+          </div>
+          <p className='name'>{item.name}</p>
         </div>
-        <p className='name'>{item.name}</p>
-      </div>
-    ));
+        )
+      } 
+    });
   };
 
   render() {
