@@ -4,6 +4,8 @@ import {
   LOGIN_FAIL,
   USER_LOADED_SUCCESS,
   USER_LOADED_FAIL,
+  ACTIVATION_SUCCESS,
+  ACTIVATION_FAIL,
   AUTHENTICATED_SUCCESS,
   AUTHENTICATED_FAIL,
   LOGOUT
@@ -101,8 +103,30 @@ export const login = (email, password) => async dispatch => {
   }
 };
 
+export const verify = (uid, token) => async dispatch => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+
+  const body = JSON.stringify({ uid, token });
+
+  try {
+    const res = await axios.post(`${process.env.REACT_APP_API_URL}/auth/users/activation/`, body, config);
+
+    dispatch({
+      type: ACTIVATION_SUCCESS
+    });
+  } catch (err) {
+    dispatch({
+      type: ACTIVATION_FAIL
+    });
+  }
+};
+
 export const logout = () => dispatch => {
   dispatch({
     type: LOGOUT
   })
-}
+};

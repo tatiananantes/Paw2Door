@@ -3,9 +3,11 @@ import {
   LOGIN_FAIL,
   USER_LOADED_SUCCESS,
   USER_LOADED_FAIL,
+  ACTIVATION_SUCCESS,
+  ACTIVATION_FAIL,
   AUTHENTICATED_SUCCESS,
   AUTHENTICATED_FAIL,
-  LOGOUT
+  LOGOUT,
 
 } from '../actions/types';
 
@@ -48,6 +50,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         user: null
+      }
+    case ACTIVATION_SUCCESS:
+    case ACTIVATION_FAIL:
+      return {
+        ...state
       }
     case LOGIN_FAIL:
     case LOGOUT:
