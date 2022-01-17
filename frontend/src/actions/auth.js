@@ -127,6 +127,7 @@ export const verify = (uid, token) => async dispatch => {
 };
 
 export const logout = () => dispatch => {
+  localStorage.clear()
   dispatch({
     type: LOGOUT
   })
