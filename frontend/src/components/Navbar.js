@@ -24,7 +24,7 @@ const Navbar = ({ logout, isAuthenticated }) => {
   const authLinks = () => (
     <Fragment>
       <li className="nav-item">
-          <a className="nav-link" href="#!" onClick={logout}>Logout</a>
+          <a className="nav-link" href="/" onClick={logout}>Logout</a>
       </li>
       <li className="nav-item">
           <a className="nav-link" href={`/shelter/${localStorage.getItem('userId')}`}>My Shelter</a>

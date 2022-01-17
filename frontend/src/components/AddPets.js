@@ -48,7 +48,7 @@ export default class AddPets extends Component {
     let form_data = new FormData();
     form_data.append('image', this.state.image, this.state.image.name);
     form_data.append('name', this.state.name);
-    form_data.append('shelter', '1');
+    form_data.append('shelter', `${localStorage.getItem('userId')}`);
     console.log(form_data)
     let url = 'http://localhost:8000/api/pet/';
     
