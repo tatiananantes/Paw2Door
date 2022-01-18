@@ -23,18 +23,20 @@ const ShowPets = () => {
 
   return (
     <div className='all-pets'>
-      <h1>Pets avaialble for adoption</h1>
+      <h1 className="mt-5">Pets avaialble for adoption</h1>
       <div className='row'>
         {pets.map((pet, index) => (
-          <div className='pet col-sm-4' key={pet.id}>
-            <div className='object-wrap'>
-              {pet.image == null 
-                ? <img src='http://localhost:8000/images/paw.png' className="img-fluid"></img>
-                : <img src={pet.image} className="img-fluid img-sizer"></img>
-              }
+          <Link to={"/pet/" + pet.id} className="block mt-4 col-sm-4" key={pet.id}>
+            <div className='pet'>
+              <div className='object-wrap'>
+                {pet.image == null 
+                  ? <img src='http://localhost:8000/images/paw.png' className="img-fluid"></img>
+                  : <img src={pet.image} className="img-fluid img-sizer"></img>
+                }
+              </div>
+              <p>{pet.name}</p>
             </div>
-            <Link to={`/pet/${pet.id}`} className='name'>{pet.name}</Link>
-          </div>
+          </Link>
         ))}
       </div>
 
