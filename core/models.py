@@ -4,12 +4,12 @@ from django.db.models.base import Model
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 
 class UserAccountManager(BaseUserManager):
-    def create_user(self, email, name, phone_number, password=None):
+    def create_user(self, email, name, phone_number, postcode, longitude, latitude, password=None):
         if not email:
             raise ValueError("Users must have an email address")
         
         email = self.normalize_email(email)
-        user = self.model(email=email, name=name, phone_number=phone_number)
+        user = self.model(email=email, name=name, phone_number=phone_number, postcode=postcode, longitude=longitude, latitude=latitude)
 
         user.set_password(password)
         user.save()
@@ -23,11 +23,14 @@ class Shelter(AbstractBaseUser, PermissionsMixin):
     password = models.CharField(max_length=50)
     phone_number = models.CharField(max_length=20)
     is_active = models.BooleanField(default=True)
+    postcode = models.CharField(max_length=8)
+    longitude = models.FloatField()
+    latitude = models.FloatField()
 
     objects = UserAccountManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['name', 'phone_number']
+    REQUIRED_FIELDS = ['name', 'phone_number', 'postcode', 'longitude', 'latitude']
 
     def get_full_name(self):
         return self.name

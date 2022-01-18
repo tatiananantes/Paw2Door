@@ -17,6 +17,9 @@ class SignUpForm extends Component {
         password: "",
         re_password: "",
         phone_number: "",
+        postcode: "",
+        longitude: 0.0,
+        latitude: 0.0,
       },
     };
   }
@@ -36,8 +39,22 @@ class SignUpForm extends Component {
     this.setState({ modal: !this.state.modal });
   };
 
-  handleSubmit = (item) => {
+  getLocation = async (item) => {
+
     this.toggle();
+
+    await axios
+    .get(`http://api.postcodes.io/postcodes/${item.postcode}`)
+    .then((res) => {
+      item['longitude'] = res.data.result.longitude
+      item['latitude'] = res.data.result.latitude
+    })
+
+    this.handleSubmit(item)
+
+  }
+
+  handleSubmit = (item) => {
 
     if (item.id) {
       axios
@@ -53,7 +70,7 @@ class SignUpForm extends Component {
   };
 
   createItem = () => {
-    const item = { name: "", email: "", password: "", re_password: "", phone_number: "" };
+    const item = { name: "", email: "", password: "", re_password: "", phone_number: "", postcode: "", longitude: 0.0, latitude: 0.0 };
 
     this.setState({ activeItem: item, modal: !this.state.modal });
   };
@@ -113,7 +130,7 @@ class SignUpForm extends Component {
           <SignUpFormModal
             activeItem={this.state.activeItem}
             toggle={this.toggle}
-            onSave={this.handleSubmit}
+            onSave={this.getLocation}
           />
         ) : null}
       </main>
