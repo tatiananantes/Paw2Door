@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import {
   Button,
   Modal,
@@ -11,6 +11,7 @@ import {
 } from "reactstrap";
 import axios from "axios";
 import MyPets from "./MyPets";
+import { useParams } from "react-router-dom";
 
 
 export default class AddPets extends Component {
@@ -18,12 +19,21 @@ export default class AddPets extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      userParam: '',
       title: '',
       content: '',
       image: null,
       isModalOpen: false
     };
   };
+
+  addButton = () => (
+    <Fragment>
+        <button className="btn btn-primary mt-2 mb-4" onClick={this.toggle}>
+          Add a pet
+        </button>
+    </Fragment>
+  );
 
   handleChange = (e) => {
     this.setState({
@@ -69,9 +79,9 @@ export default class AddPets extends Component {
     if (localStorage.getItem('userId')) {
     return (
       <div>
-        <button className="btn btn-primary" onClick={this.toggle}>
-          Add a pet
-        </button>
+        {localStorage.getItem('userId') == String(window.location.href.match(/\/([^\/]+)\/?$/)[1]) &&
+          this.addButton()
+        }
         <Modal isOpen={this.state.isModalOpen} toggle={this.toggle}>
           <ModalHeader toggle={toggle}>Add Animal to Shelter</ModalHeader>
           <ModalBody>
