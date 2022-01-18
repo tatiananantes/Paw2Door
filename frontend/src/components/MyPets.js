@@ -57,7 +57,7 @@ export default class MyPets extends Component {
               className="btn btn-danger"
               onClick={() => this.deletePet(item.id)}
             >
-              Delete Pet
+              {'Remove ' + item.name}
             </button>
           }
         </div>
