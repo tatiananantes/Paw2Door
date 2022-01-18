@@ -50,16 +50,18 @@ def pet(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'PUT', 'DELETE'])
+@authentication_classes([])
 @permission_classes([])
-def pet_details(request, pk):
+@parser_classes([MultiPartParser,FormParser,JSONParser])
+def pet_detail(request, pk):
     try:
         pet = Pet.objects.get(pk=pk)
     except Pet.DoesNotExist:
-        return JsonResponse({'message': 'This pet does not exist'}, status=status.HTTP_404_NOT_FOUND) 
+        return Response({'message': 'This pet does not exist'}, status=status.HTTP_404_NOT_FOUND) 
 
     if request.method == 'GET':
         pet_serializer = PetSerializer(pet)
-        return JsonResponse(pet_serializer.data) 
+        return Response(pet_serializer.data) 
 
     elif request.method == 'PUT': 
         pet_data = JSONParser().parse(request) 

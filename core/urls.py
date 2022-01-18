@@ -1,9 +1,9 @@
-from django.urls import path
+from django.urls import path, re_path
 from . import views
 
 urlpatterns = [
-    path('shelter/find/', views.shelter_get, name= 'shelters_find'),
-    path('shelter/', views.shelter, name= 'shelters_list'),
-    path('pet/', views.pet, name= 'pets_list'),
-    path('pet/:id', views.pet_details)
+    re_path(r'^api/shelter/find/', views.shelter_get, name= 'shelters_find'),
+    re_path(r'^api/shelter/', views.shelter, name= 'shelters_list'),
+    re_path(r'^api/pet/$', views.pet, name= 'pets_list'),
+    re_path(r'^pet/(?P<pk>[0-9]+)$', views.pet_detail)
 ]
