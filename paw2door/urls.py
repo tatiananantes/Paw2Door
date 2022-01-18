@@ -18,6 +18,7 @@ from django.urls import path, include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 from core.views import front, shelter, pet
+from core import views
 from django.views.generic import TemplateView
 
 urlpatterns = [
@@ -25,7 +26,10 @@ urlpatterns = [
     path("", front, name="front"),
     path("shelter/", shelter, name="shelter"),
     path("pet/", pet, name="pet"),
-    path('api/', include('core.urls')),
+    re_path(r'^api/shelter/find/', views.shelter_get, name= 'shelters_find'),
+    re_path(r'^api/shelter/', views.shelter, name= 'shelters_list'),
+    re_path(r'^api/pet/$', views.pet, name= 'pets_list'),
+    re_path(r'^api/pet/([0-9])$', views.pet_detail),
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.jwt')),
 ]
