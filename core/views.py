@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from .serializers import ShelterSerializer, PetSerializer
 from .models import Shelter, Pet
+from django.http.response import JsonResponse
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from rest_framework.decorators import api_view, authentication_classes, permission_classes, parser_classes
 
@@ -47,3 +48,27 @@ def pet(request):
             serializer.save()
             return Response(status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+@permission_classes([])
+def pet_details(request, pk):
+    try:
+        pet = Pet.objects.get(pk=pk)
+    except Pet.DoesNotExist:
+        return JsonResponse({'message': 'This pet does not exist'}, status=status.HTTP_404_NOT_FOUND) 
+
+    if request.method == 'GET':
+        pet_serializer = PetSerializer(pet)
+        return JsonResponse(pet_serializer.data) 
+
+    elif request.method == 'PUT': 
+        pet_data = JSONParser().parse(request) 
+        pet_serializer = PetSerializer(pet, data=pet_data) 
+        if pet_serializer.is_valid(): 
+            pet_serializer.save() 
+            return JsonResponse(pet_serializer.data) 
+        return JsonResponse(pet_serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
+
+    elif request.method == 'DELETE': 
+        pet.delete() 
+        return JsonResponse({'message': 'Pet was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
