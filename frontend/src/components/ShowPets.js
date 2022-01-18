@@ -2,11 +2,24 @@ import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import '../App.css';
 import axios from "axios";
+import _ from 'underscore';
+import {
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Form,
+  FormGroup,
+  Input,
+  Label,
+} from "reactstrap";
+const haversine = require('haversine')
 const sortByDistance = require('sort-by-distance')
 
 const ShowPets = () => {
-  const [pets, setData] = useState([]);
-  const [shelters, setShelter] = useState([]);
+  let [pets, setData] = useState([]);
+  let [shelters, setShelter] = useState([]);
 
   useEffect(() => {
 
@@ -36,37 +49,67 @@ const ShowPets = () => {
   }, []);
 
   const getDistance = () => {
-    console.log(pets)
-    console.log(shelters)
+
+    let start = {
+      latitude: -0.117098,
+      longitude: 51.50998
+    }
+
+    if (document.querySelector('#postcode') != '') {
+      start = {
+        latitude: -0.117098,
+        longitude: 51.50998
+      }
+    }
 
     const opts = {
-        yName: 'latitude',
-        xName: 'longitude'
-    }
-    
-    const origin = { longitude: 4, latitude: 22}
+      yName: 'latitude',
+      xName: 'longitude'
+      } 
 
-    let shelter_distance = sortByDistance(origin, shelters, opts)
+    shelters = sortByDistance(start, shelters, opts)
+
+    shelters = shelters.map((shelter, index) => {
+      shelter['km'] = haversine(start, {
+        latitude: shelter.latitude,
+        longitude: shelter.longitude
+      })
+      return shelter
+    })
+
+    console.log(shelters)
 
     let pets_distance = pets.map((pet, index) => {
-      shelter_distance.map((shelter, index) => {
+      shelters.map((shelter, index) => {
         if (pet.shelter == shelter.id) {
-          pet['distance'] = shelter.distance
+          pet['km'] = shelter.km
         }
       })
-
+      return pet
     }); 
+
+    return pets_distance
   }
 
   return (
-    <>        
+    <> 
+    <FormGroup>
+      <Label for="user-postcode">Enter your postcode to find pets near you:</Label>
+      <Input
+        type="text"
+        id="user-postcode"
+        name="user-postcode"
+        onChange=''
+        placeholder="your postcode"
+      />
+    </FormGroup>
       <button className="btn btn-primary" onClick={getDistance}>
         Find pets near me
       </button>
     <div className='all-pets'>
       <h1>Pets avaialble for adoption</h1>
       <div className='row'>
-        {pets.map((pet, index) => (
+        {getDistance().map((pet, index) => (
           <div className='pet col-sm-4' key={pet.id}>
             <div className='object-wrap'>
               {pet.image == null 
@@ -75,6 +118,7 @@ const ShowPets = () => {
               }
             </div>
             <Link to={`/pet/${pet.id}`} className='name'>{pet.name}</Link>
+            <p>{parseInt(pet.km)}km from you</p>
           </div>
         ))}
       </div>
