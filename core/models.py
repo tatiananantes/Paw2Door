@@ -42,6 +42,10 @@ class Pet(models.Model):
     shelter = models.ForeignKey(Shelter, on_delete=models.CASCADE)
     name = models.CharField(max_length=20)
     image = models.ImageField(blank=True, null=True)
+    age = models.IntegerField(null=True)
+    species = models.CharField(max_length=50)
+    gender = models.CharField(max_length=50)
+    bio = models.TextField()
     
     def __str__(self):
         return self.name
