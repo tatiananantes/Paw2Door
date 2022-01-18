@@ -19,7 +19,9 @@ const sortByDistance = require('sort-by-distance')
 
 const ShowPets = () => {
   let [pets, setData] = useState([]);
+  let [pets_distance, setPets] = useState([]);
   let [shelters, setShelter] = useState([]);
+  let [location, setLocation] = useState([]);
 
   useEffect(() => {
 
@@ -48,17 +50,29 @@ const ShowPets = () => {
 
   }, []);
 
-  const getDistance = () => {
+  const getLocation = (postcode) => {
+    console.log(postcode)
+
+    axios
+    .get(`http://api.postcodes.io/postcodes/${postcode}`)
+    .then((res) => {
+      setLocation(res.data.result)
+      console.log(res.data.result)
+    })
+
+  }
+
+  const sortPetsByDistance = () => {
 
     let start = {
       latitude: -0.117098,
       longitude: 51.50998
     }
 
-    if (document.querySelector('#postcode') != '') {
+    if (location != null) {
       start = {
-        latitude: -0.117098,
-        longitude: 51.50998
+        latitude: location.latitude,
+        longitude: location.longitude
       }
     }
 
@@ -99,17 +113,20 @@ const ShowPets = () => {
         type="text"
         id="user-postcode"
         name="user-postcode"
-        onChange=''
         placeholder="your postcode"
       />
     </FormGroup>
-      <button className="btn btn-primary" onClick={getDistance}>
+    <Button
+        className="btn btn-primary"
+        color="success"
+        onClick={() => getLocation(document.querySelector('#user-postcode').value)}
+      >
         Find pets near me
-      </button>
+    </Button>
     <div className='all-pets'>
       <h1>Pets avaialble for adoption</h1>
       <div className='row'>
-        {getDistance().map((pet, index) => (
+        {sortPetsByDistance().map((pet, index) => (
           <div className='pet col-sm-4' key={pet.id}>
             <div className='object-wrap'>
               {pet.image == null 
