@@ -119,6 +119,29 @@ export default class AddPets extends Component {
                   </Input>
                 </FormGroup>
                 <FormGroup>
+                  <Label for="species">Species</Label>
+                  <Input
+                    type="select"
+                    id="species"
+                    name="species"
+                    value={this.state.species}
+                    onChange={this.handleChange}
+                  >
+                    <option value="Dog">Dog</option>
+                    <option value="Cat">Cat</option>
+                  </Input>
+                </FormGroup>
+                <FormGroup>
+                  <Label for="bio">Bio</Label>
+                  <Input
+                    type="textarea"
+                    id="bio"
+                    name="bio"
+                    value={this.state.bio}
+                    onChange={this.handleChange}
+                  />
+                </FormGroup>
+                <FormGroup>
                   <Label for="image">Image</Label>
                   <Input
                     type="file"
