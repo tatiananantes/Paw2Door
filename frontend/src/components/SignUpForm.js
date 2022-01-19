@@ -89,18 +89,6 @@ class SignUpForm extends Component {
         >
           {item.name}
         </span>
-        {/* <span>
-          <button
-            className="btn btn-secondary mr-2"
-          >
-            Edit
-          </button>
-          <button
-            className="btn btn-danger"
-          >
-            Delete
-          </button>
-        </span> */}
       </li>
     ));
   };
@@ -114,7 +102,7 @@ class SignUpForm extends Component {
             <div className="card p-3">
               <div className="mb-4">
                 <button
-                  className="btn btn-primary" 
+                  className="btn btn-warning" 
                   onClick={this.createItem}
                 >
                   Add Shelter

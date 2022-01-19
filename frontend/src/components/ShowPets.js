@@ -177,16 +177,15 @@ const ShowPets = () => {
 
       </div>
 
-      <div className="all-pets">
+      <div className="all-pets pb-5">
         <div className="container">
           <h1 className="pt-5 pb-3 text-center">Pets looking for a new home</h1>
           <div className="row">
             {sortPetsByDistance().map((pet, index) => (
-              <div class="col-sm-4">
+              <div className="col-sm-4" key={pet.id}>
                 <Link
                   to={"/pet/" + pet.id}
                   className="block pet mt-4"
-                  key={pet.id}
                 >
                   <div className="object-wrap">
                     {pet.image == null ? (

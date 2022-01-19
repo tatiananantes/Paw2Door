@@ -31,6 +31,13 @@ h1 {
   justify-content: end;
 }
 
+.shelter-block {
+  padding: 30px;
+  border-radius: 8px;
+  background-color: white;
+  height: 100%;
+}
+
 .navbar {
   position: fixed;
   top: 0;
@@ -43,8 +50,18 @@ h1 {
   padding-top: 95px;
 }
 
-.all-pets {
+.text-default {
+  color: #282c34;
+  font-weight: 600;
+}
+
+.btn {
+  font-weight: 600;
+}
+
+.all-pets, .muted-wrap {
   background-color: #f2f2f2;
+  min-height: calc(100vh - 95px);
 }
 
 .pet {
@@ -52,7 +69,7 @@ h1 {
   overflow: hidden;
   display: block;
   border-radius: 8px;
-  box-shadow: rgba(0, 8px 8px -6px black);
+  box-shadow: 0, 10px, 4px, -2px, black;
 }
 
 .pet .object-wrap {

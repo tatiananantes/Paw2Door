@@ -36,7 +36,7 @@ export default class CustomModal extends Component {
     const { toggle, onSave } = this.props;
   
     return (
-      <Modal isOpen={true} toggle={toggle}>
+      <Modal isOpen={true} toggle={toggle} size="lg">
         <ModalHeader toggle={toggle}>Create Shelter</ModalHeader>
         <ModalBody>
           <Form>
@@ -110,7 +110,7 @@ export default class CustomModal extends Component {
         </ModalBody>
         <ModalFooter>
           <Button
-            color="success"
+            className="btn btn-warning"
             onClick={() => onSave(this.state.activeItem)}
           >
             Save
