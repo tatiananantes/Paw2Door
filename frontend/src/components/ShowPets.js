@@ -34,6 +34,7 @@ const ShowPets = () => {
         })
         .catch((err) => console.log(err));
     };
+    setLocation(undefined);
     setSpecies("All");
     setRadius("All");
     fetchShelterDetails();
@@ -41,14 +42,18 @@ const ShowPets = () => {
   }, []);
 
   const getLocation = () => {
-    if (postcode != "") {
-      axios
-        .get(`http://api.postcodes.io/postcodes/${postcode}`)
-        .then((res) => {
-          setLocation(res.data.result);
-        })
-        .catch((err) => window.alert("Please use a valid UK postcode!"));
+    if (postcode == '') {
+      setLocation(undefined);
     }
+    axios
+      .get(`http://api.postcodes.io/postcodes/${postcode}`)
+      .then((res) => {
+        setLocation(res.data.result);
+      })
+      .catch((err) => {
+        window.alert("Please use a valid UK postcode!")
+        setLocation(undefined);
+      })
   };
 
   const sortPetsByDistance = () => {
@@ -57,7 +62,7 @@ const ShowPets = () => {
       longitude: 51.50998,
     };
 
-    if (location.length != 0) {
+    if (location != undefined) {
       start = {
         latitude: location.latitude,
         longitude: location.longitude,
@@ -188,7 +193,7 @@ const ShowPets = () => {
                 </div>
               </div>
               <p>{pet.name}</p>
-              {location.length != 0 ? (
+              {location != undefined ? (
                 <p>{parseInt(pet.km)}km from you</p>
               ) : null}
             </Link>
