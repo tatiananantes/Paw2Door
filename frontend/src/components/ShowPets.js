@@ -8,14 +8,17 @@ import {
   FormGroup,
   Input,
   Label,
+  Form,
 } from "reactstrap";
 const haversine = require('haversine')
 const sortByDistance = require('sort-by-distance')
 
 const ShowPets = () => {
-  let [pets, setData] = useState([]);
+  let [pets, setPets] = useState([]);
   let [shelters, setShelter] = useState([]);
   let [location, setLocation] = useState([]);
+  let [species, setSpecies] = useState();
+  let [postcode, setPostcode] = useState();
 
   useEffect(() => {
 
@@ -23,7 +26,7 @@ const ShowPets = () => {
       try {
         const response = await fetch("http://localhost:8000/api/pet/");
         const json = await response.json();
-        setData(json);
+        setPets(json);
       } catch (error) {
         console.log("error", error);
       }
@@ -33,24 +36,23 @@ const ShowPets = () => {
       await axios
         .get('http://localhost:8000/api/shelter/find/')
         .then((res) => {
-          console.log(res.data)
           setShelter(res.data)
         })
         .catch((err) => console.log(err));
     }
 
+    setSpecies('All')
     fetchShelterDetails()
     fetchData();
 
   }, []);
 
-  const getLocation = (postcode) => {
-    if (postcode) {
+  const getLocation = () => {
+    if (postcode != '') {
       axios
       .get(`http://api.postcodes.io/postcodes/${postcode}`)
       .then((res) => {
         setLocation(res.data.result)
-        console.log(res.data.result)
       }) 
       .catch((err) => window.alert("Please use a valid UK postcode!"));
     }
@@ -86,8 +88,6 @@ const ShowPets = () => {
       return shelter
     })
 
-    console.log(shelters)
-
     let pets_distance = pets.map((pet, index) => {
       shelters.map((shelter, index) => {
         if (pet.shelter == shelter.id) {
@@ -97,7 +97,15 @@ const ShowPets = () => {
       return pet
     }); 
 
-    return _.sortBy(pets_distance, 'km')
+    if (species == 'Cat') {
+      const cats = pets_distance.filter(function(pet) {return pet.species == 'Cat'})
+      return _.sortBy(cats, 'km')
+    } else if (species == 'Dog') {
+      const dogs = pets_distance.filter(function(pet) {return pet.species == 'Dog'})
+      return _.sortBy(dogs, 'km')
+    } else { 
+      return _.sortBy(pets_distance, 'km')
+    }
   }
 
   return (
@@ -109,12 +117,26 @@ const ShowPets = () => {
         id="user-postcode"
         name="user-postcode"
         placeholder="your postcode"
+        onChange={(e) => setPostcode(e.target.value)}
       />
+    </FormGroup>
+    <FormGroup>
+      <Label for="species">Species</Label>
+      <Input
+        type="select"
+        id="species"
+        name="species"
+        onChange={(e) => setSpecies(e.target.value)}
+      >
+        <option value="All">All</option>
+        <option value="Dog">Dog</option>
+        <option value="Cat">Cat</option>
+      </Input>
     </FormGroup>
     <Button
         className="btn btn-primary"
         color="success"
-        onClick={() => getLocation(document.querySelector('#user-postcode').value)}
+        onClick={() => getLocation()}
       >
         Find pets near me
     </Button>
