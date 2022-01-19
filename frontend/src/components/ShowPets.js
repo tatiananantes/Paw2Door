@@ -102,7 +102,7 @@ const ShowPets = () => {
       return pet
     }); 
 
-    return pets_distance
+    return _.sortBy(pets_distance, 'km')
   }
 
   return (
