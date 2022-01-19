@@ -22,9 +22,9 @@ export default class AddPets extends Component {
       content: '',
       image: null,
       age: 0,
-      gender: "",
+      gender: "Male",
       bio: "",
-      species: "",
+      species: "Dog",
       isModalOpen: false,
     };
   }

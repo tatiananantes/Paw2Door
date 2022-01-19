@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
+import DisplayPetModal from "./DisplayPetModal";
 import '../App.css';
 import axios from "axios";
 import _ from 'underscore';
