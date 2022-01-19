@@ -20,17 +20,26 @@ export default class DisplayPetModal extends Component {
         bio: "",
         shelter: "",
       },
+      shelterList: [],
     };
   }
 
   componentDidMount() {
     this.returnActivePet();
+    this.returnShelters();
   }
 
   returnActivePet = () => {
     axios
       .get(`/api/pet/${this.state.id}`)
       .then((res) => this.setState({ activePet: res.data }))
+      .catch((err) => console.log(err));
+  };
+
+  returnShelters = () => {
+    axios
+      .get('/api/shelter/find/')
+      .then((res) => this.setState({ shelterList: res.data }))
       .catch((err) => console.log(err));
   };
 
@@ -44,6 +53,7 @@ export default class DisplayPetModal extends Component {
   render() {
     const { toggle } = this.props;
     const pet = this.state.activePet;
+    const shelter = this.state.shelterList
     return (
       <Modal isOpen={true} toggle={toggle} size="lg">
         <ModalBody>
@@ -64,6 +74,22 @@ export default class DisplayPetModal extends Component {
                 <h4 className="h5">About</h4>
                 <p>{pet.bio}</p>
               </div>
+            </div>
+            <div className="row mt-4">
+                {shelter.map((shelter) => {
+                  if (shelter.id == pet.shelter) {
+                    return (
+                      <div className="col-sm-12 shelter-block">
+                        <h3>Contact details</h3>
+                        <div className='shelter' key={shelter.id}>
+                          <p className='name'>Shelter: <a href={'/shelter/' + shelter.id}>{shelter.name}</a></p>
+                          <p className='email'>Email: <a href={'mailto:' + shelter.email}>{ shelter.email}</a></p>
+                          <p className='phone_number'>Phone Number: {shelter.phone_number}</p>
+                        </div>
+                      </div>
+                    )}
+                  }
+                )}
             </div>
           </section>
         </ModalBody>
