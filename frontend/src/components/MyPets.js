@@ -1,6 +1,8 @@
 import React, { Component } from "react";
+import { Link } from 'react-router-dom';
 import '../App.css';
 import axios from "axios";
+import DisplayPetModal from "./DisplayPetModal";
 
 export default class MyPets extends Component {
   constructor(props) {
@@ -8,17 +10,19 @@ export default class MyPets extends Component {
     this.state = {
       myPetList: [],
       modal: false,
-      activeItem: {
-        shelter: "",
-        name: "",
-        image: null,
-      },
+      id: "1",
     };
   }
 
   componentDidMount() {
     this.refreshList();
   }
+
+  deletePet = pk => {
+    axios.delete("/api/pet/" + pk).then(() => {
+      this.refreshList()
+    });
+  };
 
   refreshList = () => {
     axios
@@ -31,21 +35,39 @@ export default class MyPets extends Component {
     this.setState({ modal: !this.state.modal });
   };
 
+  createItem = () => {
+    this.setState({ id: this.state.id, modal: !this.state.modal });
+  };
+
+
   renderItems = () => {
     const newItems = this.state.myPetList;
 
     return newItems.map((item) => {
       if (String(item.shelter) == String(window.location.href.match(/\/([^\/]+)\/?$/)[1])) {
         return (
-        <div className='pet col-sm-4' key={item.id}>
-          <div className='object-wrap'>
-            {item.image == null 
-             ? <img src='http://localhost:8000/images/paw.png' className="img-fluid"></img>
-             : <img src={item.image} className="img-fluid img-sizer"></img>
-            }
-          </div>
-          <p className='name'>{item.name}</p>
-        </div>
+          <Link to={"/pet/" + item.id} className="block mt-4 col-sm-4" key={item.id}>
+            <div className='name'>
+              <div className='pet'>
+                <div className='object-wrap'>
+                  {item.image == null 
+                  ? <img src='http://localhost:8000/images/paw.png' className="img-fluid"></img>
+                  : <img src={item.image} className="img-fluid img-sizer"></img>
+                  }
+                </div>
+                <p className='name'>{item.name}</p>
+                {localStorage.getItem('userId') == String(window.location.href.match(/\/([^\/]+)\/?$/)[1]) &&
+                  <button
+                    type="button"
+                    className="btn btn-danger"
+                    onClick={() => this.deletePet(item.id)}
+                  >
+                    {'Remove ' + item.name}
+                  </button>
+                }
+              </div>
+            </div>
+        </Link>
         )
       } 
     });
@@ -53,11 +75,20 @@ export default class MyPets extends Component {
 
   render() {
     return (
-      <div className='all-pets'>
-        <div className='row'>
-        {this.renderItems()}
+      <section>
+        <div className='all-pets'>
+          <div className='row'>
+          {this.renderItems()}
+          </div>
         </div>
-      </div>
+        {this.state.modal ? (
+          <DisplayPetModal
+            id={this.state.id}
+            toggle={this.toggle}
+          />
+        ) : null}
+      </section>
+
     );
   }
 

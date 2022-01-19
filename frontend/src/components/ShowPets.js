@@ -5,11 +5,6 @@ import axios from "axios";
 import _ from 'underscore';
 import {
   Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  Form,
   FormGroup,
   Input,
   Label,
@@ -19,7 +14,6 @@ const sortByDistance = require('sort-by-distance')
 
 const ShowPets = () => {
   let [pets, setData] = useState([]);
-  let [pets_distance, setPets] = useState([]);
   let [shelters, setShelter] = useState([]);
   let [location, setLocation] = useState([]);
 
@@ -125,22 +119,23 @@ const ShowPets = () => {
         Find pets near me
     </Button>
     <div className='all-pets'>
-      <h1>Pets avaialble for adoption</h1>
+      <h1 className="mt-5">Pets avaialble for adoption</h1>
       <div className='row'>
         {sortPetsByDistance().map((pet, index) => (
-          <div className='pet col-sm-4' key={pet.id}>
-            <div className='object-wrap'>
-              {pet.image == null 
-                ? <img src='http://localhost:8000/images/paw.png' className="img-fluid"></img>
-                : <img src={pet.image} className="img-fluid img-sizer"></img>
-              }
-            </div>
-            <Link to={`/pet/${pet.id}`} className='name'>{pet.name}</Link>
-            {location.length != 0 ? <p>{parseInt(pet.km)}km from you</p> : null}
-          </div>
+            <Link to={"/pet/" + pet.id} className="block mt-4 col-sm-4" key={pet.id}>
+              <div className='pet'>
+                <div className='object-wrap'>
+                  {pet.image == null 
+                    ? <img src='http://localhost:8000/images/paw.png' className="img-fluid"></img>
+                    : <img src={pet.image} className="img-fluid img-sizer"></img>
+                  }
+                </div>
+              </div>
+              <p>{pet.name}</p>
+              {location.length != 0 ? <p>{parseInt(pet.km)}km from you</p> : null}
+            </Link>       
         ))}
       </div>
-
     </div>
     </>
   )
