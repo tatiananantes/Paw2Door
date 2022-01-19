@@ -37,6 +37,7 @@ const ShowPets = () => {
     setLocation(undefined);
     setSpecies("All");
     setRadius("All");
+    setPostcode('')
     fetchShelterDetails();
     fetchData();
   }, []);
@@ -113,7 +114,7 @@ const ShowPets = () => {
   };
 
   const filterByDistance = (pets) => {
-    if (radius != 'All') {
+    if (radius != 'All' && location != undefined) {
       return pets.filter(function (pet) {
         return pet.km < radius;
       });
