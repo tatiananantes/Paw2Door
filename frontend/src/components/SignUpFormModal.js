@@ -10,6 +10,7 @@ import {
   Input,
   Label,
 } from "reactstrap";
+import axios from "axios";
 
 export default class CustomModal extends Component {
   constructor(props) {
@@ -92,6 +93,17 @@ export default class CustomModal extends Component {
                 value={this.state.activeItem.phone_number}
                 onChange={this.handleChange}
                 placeholder="Please enter the phone number"
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label for="shelter-postcode">Postcode</Label>
+              <Input
+                type="text"
+                id="shelter-postcode"
+                name="postcode"
+                value={this.state.activeItem.postcode}
+                onChange={this.handleChange}
+                placeholder="Please enter your postcode"
               />
             </FormGroup>
           </Form>
