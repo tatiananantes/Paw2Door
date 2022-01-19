@@ -61,7 +61,7 @@ export default class MyPets extends Component {
                   className="btn btn-primary"
                   onClick={() => this.toggle(item.id)}
                 >
-                  View full profile
+                  Full profile
               </button>
               {localStorage.getItem('userId') == String(window.location.href.match(/\/([^\/]+)\/?$/)[1]) &&
                 <button
@@ -69,7 +69,7 @@ export default class MyPets extends Component {
                   className="btn btn-danger"
                   onClick={() => this.deletePet(item.id)}
                 >
-                  {'Remove ' + item.name}
+                  Delete
                 </button>
               }
             </div>
