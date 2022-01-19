@@ -11,7 +11,6 @@ import {
 } from "reactstrap";
 import axios from "axios";
 import MyPets from "./MyPets";
-import { useParams } from "react-router-dom";
 
 export default class AddPets extends Component {
   constructor(props) {
@@ -78,6 +77,8 @@ export default class AddPets extends Component {
         console.log(res.data);
       })
       .catch((err) => console.log(err));
+
+    window.location.reload()
   };
 
   render() {
