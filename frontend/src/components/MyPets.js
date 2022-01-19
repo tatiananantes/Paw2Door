@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from 'react-router-dom';
 import '../App.css';
 import axios from "axios";
 import DisplayPetModal from "./DisplayPetModal";
@@ -10,8 +9,9 @@ export default class MyPets extends Component {
     this.state = {
       myPetList: [],
       modal: false,
-      id: "1",
+      id: "",
     };
+    this.toggle = this.toggle.bind(this);
   }
 
   componentDidMount() {
@@ -31,7 +31,8 @@ export default class MyPets extends Component {
       .catch((err) => console.log(err));
   };
 
-  toggle = () => {
+  toggle = pet => {
+    this.setState({ id: pet })
     this.setState({ modal: !this.state.modal });
   };
 
@@ -46,28 +47,33 @@ export default class MyPets extends Component {
     return newItems.map((item) => {
       if (String(item.shelter) == String(window.location.href.match(/\/([^\/]+)\/?$/)[1])) {
         return (
-          <Link to={"/pet/" + item.id} className="block mt-4 col-sm-4" key={item.id}>
-            <div className='name'>
-              <div className='pet'>
-                <div className='object-wrap'>
-                  {item.image == null 
-                  ? <img src='http://localhost:8000/images/paw.png' className="img-fluid"></img>
-                  : <img src={item.image} className="img-fluid img-sizer"></img>
-                  }
-                </div>
-                <p className='name'>{item.name}</p>
-                {localStorage.getItem('userId') == String(window.location.href.match(/\/([^\/]+)\/?$/)[1]) &&
-                  <button
-                    type="button"
-                    className="btn btn-danger"
-                    onClick={() => this.deletePet(item.id)}
-                  >
-                    {'Remove ' + item.name}
-                  </button>
+          <div className='name block mt-4 col-sm-4' key={item.id}>
+            <div className='pet'>
+              <div className='object-wrap'>
+                {item.image == null 
+                ? <img src='http://localhost:8000/images/paw.png' className="img-fluid"></img>
+                : <img src={item.image} className="img-fluid img-sizer"></img>
                 }
               </div>
+              <p className='name'>{item.name}</p>
+              <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={() => this.toggle(item.id)}
+                >
+                  View full profile
+              </button>
+              {localStorage.getItem('userId') == String(window.location.href.match(/\/([^\/]+)\/?$/)[1]) &&
+                <button
+                  type="button"
+                  className="btn btn-danger"
+                  onClick={() => this.deletePet(item.id)}
+                >
+                  {'Remove ' + item.name}
+                </button>
+              }
             </div>
-        </Link>
+          </div>
         )
       } 
     });
