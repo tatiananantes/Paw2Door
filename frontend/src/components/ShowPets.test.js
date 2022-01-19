@@ -28,5 +28,5 @@ it("page has species field", () => {
 
 it("find pets near me button is on homepage", () => {
   const { getByRole } = render(<App />);
-  expect(getByRole('dialog', {name: 'Find pets near me'})).toBeInTheDocument();
+  expect(getByRole('button', {name: 'Find pets near me'})).toBeInTheDocument();
 });
