@@ -51,14 +51,15 @@ const ShowPets = () => {
   }, []);
 
   const getLocation = (postcode) => {
-    console.log(postcode)
-
-    axios
-    .get(`http://api.postcodes.io/postcodes/${postcode}`)
-    .then((res) => {
-      setLocation(res.data.result)
-      console.log(res.data.result)
-    })
+    if (postcode) {
+      axios
+      .get(`http://api.postcodes.io/postcodes/${postcode}`)
+      .then((res) => {
+        setLocation(res.data.result)
+        console.log(res.data.result)
+      }) 
+      .catch((err) => window.alert("Please use a valid UK postcode!"));
+    }
 
   }
 
@@ -69,7 +70,7 @@ const ShowPets = () => {
       longitude: 51.50998
     }
 
-    if (location != null) {
+    if (location.length != 0) {
       start = {
         latitude: location.latitude,
         longitude: location.longitude
@@ -135,7 +136,7 @@ const ShowPets = () => {
               }
             </div>
             <Link to={`/pet/${pet.id}`} className='name'>{pet.name}</Link>
-            <p>{parseInt(pet.km)}km from you</p>
+            {location.length != 0 ? <p>{parseInt(pet.km)}km from you</p> : null}
           </div>
         ))}
       </div>
