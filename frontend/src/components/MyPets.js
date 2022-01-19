@@ -83,8 +83,10 @@ export default class MyPets extends Component {
     return (
       <section>
         <div className='all-pets'>
-          <div className='row'>
-          {this.renderItems()}
+          <div className="container">
+            <div className='row'>
+              {this.renderItems()}
+            </div>
           </div>
         </div>
         {this.state.modal ? (
