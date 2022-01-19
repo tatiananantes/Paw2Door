@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import DisplayPetModal from "./DisplayPetModal";
 import "../App.css";
 import axios from "axios";
 import _ from "underscore";
-import { Button, FormGroup, Input, Label, Form } from "reactstrap";
+import { Button, FormGroup, Input, Label } from "reactstrap";
 const haversine = require("haversine");
 const sortByDistance = require("sort-by-distance");
 
@@ -35,8 +34,8 @@ const ShowPets = () => {
         })
         .catch((err) => console.log(err));
     };
-
     setSpecies("All");
+    setRadius("All");
     fetchShelterDetails();
     fetchData();
   }, []);
@@ -88,6 +87,7 @@ const ShowPets = () => {
       });
       return pet;
     });
+
     return filterBySpecies(_.sortBy(pets_distance, "km"));
   };
 
@@ -108,7 +108,7 @@ const ShowPets = () => {
   };
 
   const filterByDistance = (pets) => {
-    if (radius) {
+    if (radius != 'All') {
       return pets.filter(function (pet) {
         return pet.km < radius;
       });
