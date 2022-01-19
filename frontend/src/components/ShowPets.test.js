@@ -21,12 +21,12 @@ it("page has postcode field", () => {
   ).toBeInTheDocument();
 });
 
-it("page has species", () => {
+it("page has species field", () => {
   render(<App />);
   expect(screen.getByText("Species")).toBeInTheDocument();
 });
 
-it("page has species", () => {
-  render(<App />);
-  expect(screen.getByText("Find pets near me")).toBeInTheDocument();
+it("find pets near me button is on homepage", () => {
+  const { getByRole } = render(<App />);
+  expect(getByRole('dialog', {name: 'Find pets near me'})).toBeInTheDocument();
 });
