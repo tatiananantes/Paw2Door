@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import DisplayPetModal from "./DisplayPetModal";
 import "../App.css";
 import axios from "axios";
 import _ from "underscore";
 import { Button, FormGroup, Input, Label, Form } from "reactstrap";
+
 const haversine = require("haversine");
 const sortByDistance = require("sort-by-distance");
 
@@ -14,6 +14,7 @@ const ShowPets = () => {
   let [location, setLocation] = useState([]);
   let [species, setSpecies] = useState();
   let [postcode, setPostcode] = useState();
+  let [radius, setRadius] = useState();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,20 +36,26 @@ const ShowPets = () => {
         .catch((err) => console.log(err));
     };
 
+    setLocation(undefined);
     setSpecies("All");
+    setRadius("All");
     fetchShelterDetails();
     fetchData();
   }, []);
 
   const getLocation = () => {
-    if (postcode != "") {
-      axios
-        .get(`http://api.postcodes.io/postcodes/${postcode}`)
-        .then((res) => {
-          setLocation(res.data.result);
-        })
-        .catch((err) => window.alert("Please use a valid UK postcode!"));
+    if (postcode == '') {
+      setLocation(undefined);
     }
+    axios
+      .get(`http://api.postcodes.io/postcodes/${postcode}`)
+      .then((res) => {
+        setLocation(res.data.result);
+      })
+      .catch((err) => {
+        window.alert("Please use a valid UK postcode!")
+        setLocation(undefined);
+      })
   };
 
   const sortPetsByDistance = () => {
@@ -57,7 +64,7 @@ const ShowPets = () => {
       longitude: 51.50998,
     };
 
-    if (location.length != 0) {
+    if (location != undefined) {
       start = {
         latitude: location.latitude,
         longitude: location.longitude,
@@ -87,19 +94,32 @@ const ShowPets = () => {
       });
       return pet;
     });
+    return filterBySpecies(_.sortBy(pets_distance, "km"));
+  };
 
+  const filterBySpecies = (pets) => {
     if (species == "Cat") {
-      const cats = pets_distance.filter(function (pet) {
+      const cats = pets.filter(function (pet) {
         return pet.species == "Cat";
       });
-      return _.sortBy(cats, "km");
+      return filterByDistance(cats);
     } else if (species == "Dog") {
-      const dogs = pets_distance.filter(function (pet) {
+      const dogs = pets.filter(function (pet) {
         return pet.species == "Dog";
       });
-      return _.sortBy(dogs, "km");
+      return filterByDistance(dogs);
     } else {
-      return _.sortBy(pets_distance, "km");
+      return filterByDistance(pets);
+    }
+  };
+
+  const filterByDistance = (pets) => {
+    if (radius != 'All') {
+      return pets.filter(function (pet) {
+        return pet.km < radius;
+      });
+    } else {
+      return pets;
     }
   };
 
@@ -130,6 +150,21 @@ const ShowPets = () => {
           <option value="Cat">Cat</option>
         </Input>
       </FormGroup>
+      <FormGroup>
+        <Label for="radius">Search radius</Label>
+        <Input
+          type="select"
+          id="radius"
+          name="radius"
+          onChange={(e) => setRadius(e.target.value)}
+        >
+          <option value="All">All</option>
+          <option value="10">10km</option>
+          <option value="25">25km</option>
+          <option value="50">50km</option>
+          <option value="100">100km</option>
+        </Input>
+      </FormGroup>
       <Button
         className="btn btn-primary"
         color="success"
@@ -138,9 +173,7 @@ const ShowPets = () => {
         Find pets near me
       </Button>
       <div className="all-pets">
-        <h1 className="mt-5" id="title">
-          Pets available for adoption
-        </h1>
+        <h1 className="mt-5">Pets available for adoption</h1>
         <div className="row">
           {sortPetsByDistance().map((pet, index) => (
             <Link
@@ -161,7 +194,7 @@ const ShowPets = () => {
                 </div>
               </div>
               <p>{pet.name}</p>
-              {location.length != 0 ? (
+              {location != undefined ? (
                 <p>{parseInt(pet.km)}km from you</p>
               ) : null}
             </Link>
