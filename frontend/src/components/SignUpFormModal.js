@@ -65,7 +65,7 @@ export default class CustomModal extends Component {
             <FormGroup>
               <Label for="shelter-password">Password</Label>
               <Input
-                type="text"
+                type="password"
                 id="shelter-password"
                 name="password"
                 value={this.state.activeItem.password}
@@ -76,7 +76,7 @@ export default class CustomModal extends Component {
             <FormGroup>
               <Label for="shelter-re-password">Re-enter Password</Label>
               <Input
-                type="text"
+                type="password"
                 id="shelter-re-password"
                 name="re_password"
                 value={this.state.activeItem.re_password}
