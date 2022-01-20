@@ -4,14 +4,46 @@
 
 ## User Stories
 
+The user stories we followed when creating the project.
+
+```
+As a shelter
+I want to be able to add a pet profile
+So that a potential adopter see what pets we have
+
+As a site visitor
+I want to be able to see a list of all available pets for adoption
+So that I can know which pets are available
+
+As a site visitor
+I want to filter the list of pets to my requirments
+So that I can find a good fit for my needs
+
+As a shelter
+I want to be able to register my shelter
+So that my shelter can be part of the site's listings
+
+As a shelter
+I want to add a photo to my pet profile
+So that a potential adopter can see what the pet looks like
+
+As a shelter
+I want to be able to log in and log out
+So that I can have control over my shelter
+
+```
+
 ## Technologies 
 This application was built using a tech stack of:
  - SQLite
  - Django
  - Django REST Framework
  - ReactJS (Reactstrap)
-We chose these technologies because we needed to create a full stack application.  
-Django was chosen because the team wanted to learn a new coding language in python and we found Django to one of the more popular backend solutions with SQlite support being packaged with Django. 
+
+We chose these technologies because we needed to create a full stack application, and as part of our learning - we wanted to take on new technologies.
+
+Django was chosen because the team wanted to learn python and we found Django to be one of the more popular backend solutions with built in SQLite support to handle the database.
+
 React was chosen because we wanted a JS frontend which allowed for asynchronou functions so that our application could be a dynamic SPA. 
 
 ## How to run
@@ -19,8 +51,8 @@ React was chosen because we wanted a JS frontend which allowed for asynchronou f
 ```
 create a parent directory for this project: mkdir <directoryname>
 cd into your created directory: cd <directoryname>
-run: pip install virtualenv
-activate the environment by running: source venv/bin/activate
+run to create the virtual enviorment: pip install virtualenv
+run to activate the environment: source venv/bin/activate
 git clone this project: git clone https://github.com/adam3sUK/paw2door.git 
 cd into paw2door
 run: pip install -r requirements.txt
@@ -33,34 +65,3 @@ run: npm start
   the frontend will open on [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 ```
-
-
-
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
