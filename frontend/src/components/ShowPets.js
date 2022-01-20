@@ -10,10 +10,10 @@ const sortByDistance = require("sort-by-distance");
 const ShowPets = () => {
   let [pets, setPets] = useState([]);
   let [shelters, setShelter] = useState([]);
-  let [location, setLocation] = useState([]);
-  let [species, setSpecies] = useState();
-  let [postcode, setPostcode] = useState();
-  let [radius, setRadius] = useState();
+  let [location, setLocation] = useState(undefined);
+  let [species, setSpecies] = useState("All");
+  let [postcode, setPostcode] = useState('');
+  let [radius, setRadius] = useState("All");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,18 +34,12 @@ const ShowPets = () => {
         })
         .catch((err) => console.log(err));
     };
-    setLocation(undefined);
-    setSpecies("All");
-    setRadius("All");
-    setPostcode('')
+
     fetchShelterDetails();
     fetchData();
   }, []);
 
   const getLocation = () => {
-    if (postcode == '') {
-      setLocation(undefined);
-    }
     axios
       .get(`http://api.postcodes.io/postcodes/${postcode}`)
       .then((res) => {
