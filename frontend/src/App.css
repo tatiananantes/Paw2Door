@@ -64,6 +64,14 @@ h1 {
   min-height: calc(100vh - 95px);
 }
 
+.btn-blank {
+  background: transparent;
+  border: 0;
+  display: block;
+  box-shadow: none;
+  overflow: visible;
+}
+
 .pet {
   background-color: white;
   overflow: hidden;
@@ -143,6 +151,10 @@ h1 {
 @media (min-width: 576px) {
   .nav-item {
     margin-left: 5px;
+  }
+  .flex-row {
+    display: flex;
+    flex-direction: row;
   }
 }
 

@@ -30,7 +30,7 @@ export default class AddPets extends Component {
 
   addButton = () => (
     <Fragment>
-        <button className="btn btn-primary mt-2 mb-4" onClick={this.toggle}>
+        <button className="btn btn-warning mt-2 mb-4" onClick={this.toggle}>
           Add a pet
         </button>
     </Fragment>
@@ -87,9 +87,13 @@ export default class AddPets extends Component {
       return (
         <div>
           {localStorage.getItem('userId') == String(window.location.href.match(/\/([^\/]+)\/?$/)[1]) &&
-            this.addButton()
+            <section style={{background: "#F2F2F2"}}>
+              <div className="container text-center pt-3">
+                {this.addButton()}
+              </div>
+            </section>
           }
-          <Modal isOpen={this.state.isModalOpen} toggle={this.toggle}>
+          <Modal isOpen={this.state.isModalOpen} size="lg" toggle={this.toggle}>
             <ModalHeader toggle={toggle}>Add Animal to Shelter</ModalHeader>
             <ModalBody>
               <Form onSubmit={this.handleSubmit}>
@@ -162,7 +166,7 @@ export default class AddPets extends Component {
                     placeholder="Please enter an image of the animal"
                   />
                 </FormGroup>
-                <Button color="success" type="submit">
+                <Button color="warning" type="submit">
                   Save
                 </Button>
               </Form>

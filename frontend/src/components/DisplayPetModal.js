@@ -58,23 +58,24 @@ export default class DisplayPetModal extends Component {
       <Modal isOpen={true} toggle={toggle} size="lg">
         <ModalBody>
           <section className="pet-profile mt-4">
-            <div className='pet row' key={pet.id}>
+            <div className='pet row flex-row' key={pet.id}>
               <div className="col-sm-6">
                 <div className='object-wrap'>
                   {pet.image == null 
-                    ? <img src='http://localhost:8000/images/paw.png' className="img-fluid"></img>
-                    : <img src={pet.image} className="img-fluid img-sizer"></img>
+                    ? <img src='http://localhost:8000/images/paw.png' className="img-fluid img-thumbnail"></img>
+                    : <img src={pet.image} className="img-fluid img-sizer img-thumbnail"></img>
                   } 
                 </div>
               </div>
               <div className="col-sm-6">
-                <h2 className='name'>{pet.name}</h2>
+                <h1 className='name'>{pet.name}</h1>
                 <p>Age: {pet.age}</p>
                 <p>Sex: {pet.gender}</p>
-                <h4 className="h5">About</h4>
+                <h2>About</h2>
                 <p>{pet.bio}</p>
               </div>
             </div>
+            <hr></hr>
             <div className="row mt-4">
                 {shelter.map((shelter) => {
                   if (shelter.id == pet.shelter) {

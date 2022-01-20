@@ -48,31 +48,30 @@ export default class MyPets extends Component {
       if (String(item.shelter) == String(window.location.href.match(/\/([^\/]+)\/?$/)[1])) {
         return (
           <div className='name block mt-4 col-sm-4' key={item.id}>
-            <div className='pet'>
-              <div className='object-wrap'>
-                {item.image == null 
-                ? <img src='http://localhost:8000/images/paw.png' className="img-fluid"></img>
-                : <img src={item.image} className="img-fluid img-sizer"></img>
-                }
+            <button className="btn-blank" onClick={() => this.toggle(item.id)}>
+              <div className='pet'>
+                <div className='object-wrap'>
+                  {item.image == null 
+                  ? <img src='http://localhost:8000/images/paw.png' className="img-fluid"></img>
+                  : <img src={item.image} className="img-fluid img-sizer"></img>
+                  }
+                </div>
+                <div className="text-wrap">
+                  <p className='name'><strong>{item.name}</strong></p>
+                </div>
               </div>
-              <p className='name'>{item.name}</p>
-              <button
-                  type="button"
-                  className="btn btn-primary"
-                  onClick={() => this.toggle(item.id)}
-                >
-                  Full profile
-              </button>
-              {localStorage.getItem('userId') == String(window.location.href.match(/\/([^\/]+)\/?$/)[1]) &&
-                <button
-                  type="button"
-                  className="btn btn-danger"
-                  onClick={() => this.deletePet(item.id)}
-                >
-                  Delete
-                </button>
+            </button>
+            {localStorage.getItem('userId') == String(window.location.href.match(/\/([^\/]+)\/?$/)[1]) &&
+                <div className="text-center mt-2 mb-2">
+                  <button
+                    type="button"
+                    className="btn btn-danger"
+                    onClick={() => this.deletePet(item.id)}
+                  >
+                    Delete
+                  </button>
+                </div>
               }
-            </div>
           </div>
         )
       } 
@@ -82,7 +81,7 @@ export default class MyPets extends Component {
   render() {
     return (
       <section>
-        <div className='all-pets'>
+        <div className='all-pets pb-5'>
           <div className="container">
             <div className='row'>
               {this.renderItems()}

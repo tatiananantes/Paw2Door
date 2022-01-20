@@ -21,14 +21,14 @@ const ShelterDetails = () => {
   }, []);
 
   return (
-    <div className='all-shelters'>
-      <div className="container">
-        <div className='row pt-5'>
+    <div className='form-search-wrap'>
+      <div className="container relative">
+        <div className='row pt-4 pb-4'>
           {shelters.map((shelter, index) => {
             if (String(shelter.id) == String(window.location.href.match(/\/([^\/]+)\/?$/)[1])) {
             return (
-            <div className='shelter col-sm-12' key={shelter.id}>
-              <p className='name'>Name: {shelter.name}</p>
+            <div className='shelter text-center text-white col-sm-12' key={shelter.id}>
+              <h1 className='name'>{shelter.name}</h1>
               <p className='email'>Email: { shelter.email}</p>
               <p className='phone_number'>Phone Number: {shelter.phone_number}</p>
             </div>

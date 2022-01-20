@@ -97,7 +97,7 @@ class SignUpForm extends Component {
     return (
       <main className="container">
         <h1 className="text-white text-uppercase text-center my-4">Paw2Door App</h1>
-        <div className="row">
+        <div className="row pb-5">
           <div className="col-md-6 col-sm-10 mx-auto p-0">
             <div className="card p-3">
               <div className="mb-4">
@@ -105,9 +105,10 @@ class SignUpForm extends Component {
                   className="btn btn-warning" 
                   onClick={this.createItem}
                 >
-                  Add Shelter
+                  Add Your Shelter
                 </button>
               </div>
+              <h2>Join our ever growing list of shelters</h2>
               <ul className="list-group list-group-flush border-top-0">
                 {this.renderItems()}
               </ul>
