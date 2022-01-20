@@ -10,7 +10,7 @@ const Layout = (props) =>  {
   }, []);
 
   return (
-    <div className="container">
+    <div className="navbar-offset">
       {props.children}
     </div>
   );

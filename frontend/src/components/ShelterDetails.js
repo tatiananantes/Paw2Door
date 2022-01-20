@@ -22,17 +22,19 @@ const ShelterDetails = () => {
 
   return (
     <div className='all-shelters'>
-      <div className='row'>
-        {shelters.map((shelter, index) => {
-          if (String(shelter.id) == String(window.location.href.match(/\/([^\/]+)\/?$/)[1])) {
-          return (
-          <div className='shelter col-sm-4' key={shelter.id}>
-            <p className='name'>Name: {shelter.name}</p>
-            <p className='email'>Email: { shelter.email}</p>
-            <p className='phone_number'>Phone Number: {shelter.phone_number}</p>
-          </div>
-        )}}
-        )}
+      <div className="container">
+        <div className='row pt-5'>
+          {shelters.map((shelter, index) => {
+            if (String(shelter.id) == String(window.location.href.match(/\/([^\/]+)\/?$/)[1])) {
+            return (
+            <div className='shelter col-sm-12' key={shelter.id}>
+              <p className='name'>Name: {shelter.name}</p>
+              <p className='email'>Email: { shelter.email}</p>
+              <p className='phone_number'>Phone Number: {shelter.phone_number}</p>
+            </div>
+          )}}
+          )}
+        </div>
       </div>
     </div>
   )

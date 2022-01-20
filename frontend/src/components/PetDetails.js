@@ -34,51 +34,54 @@ const PetDetails = () => {
   }, []);
 
   return (
-    <div className='all-pets'>
-      <div className='row'>
-        {pets.map((pet) => {
-          if (String(pet.id) == String(window.location.href.match(/\/([^\/]+)\/?$/)[1])) {
-          return (
-          <section className="pet-profile mt-4">
-            <div className='pet row' key={pet.id}>
-              <div className="col-sm-6">
-                <div className='object-wrap'>
-                  {pet.image == null 
-                    ? <img src='http://localhost:8000/images/paw.png' className="img-fluid"></img>
-                    : <img src={pet.image} className="img-fluid img-sizer"></img>
-                  } 
+    <div className="all-pets">
+      <div className='container'>
+        <div className='row'>
+          {pets.map((pet) => {
+            if (String(pet.id) == String(window.location.href.match(/\/([^\/]+)\/?$/)[1])) {
+            return (
+            <section className="pet-profile col-sm-12 mt-5">
+              <div className='row' key={pet.id}>
+                <div className="col-sm-6">
+                  <div className='object-wrap'>
+                    {pet.image == null 
+                      ? <img src='http://localhost:8000/images/paw.png' className="img-fluid"></img>
+                      : <img src={pet.image} className="img-fluid img-thumbnail img-rounded"></img>
+                    } 
+                  </div>
+                </div>
+                <div className="col-sm-6">
+                    <div className="shelter-block">
+                      <h1 className='name'>{pet.name}</h1>
+                      <p>Age: {pet.age}</p>
+                      <p>Sex: {pet.gender}</p>
+                      <h2>About</h2>
+                      <p>{pet.bio}</p>
+                    </div>
                 </div>
               </div>
-              <div className="col-sm-6">
-                <h2 className='name'>{pet.name}</h2>
-                <p>Age: {pet.age}</p>
-                <p>Sex: {pet.gender}</p>
-                <h4 className="h5">About</h4>
-                <p>{pet.bio}</p>
-              </div>
-            </div>
-            <div className="row mt-4">
-                {shelter.map((shelter) => {
-                  if (shelter.id == pet.shelter) {
-                    return (
-                      <div className="col-sm-12 shelter-block">
-                        <h3>Contact details</h3>
-                        <div className='shelter' key={shelter.id}>
-                          <p className='name'>Shelter: <a href={'/shelter/' + shelter.id}>{shelter.name}</a></p>
-                          <p className='email'>Email: <a href={'mailto:' + shelter.email}>{ shelter.email}</a></p>
-                          <p className='phone_number'>Phone Number: {shelter.phone_number}</p>
+              <div className="row mt-4">
+                  {shelter.map((shelter) => {
+                    if (shelter.id == pet.shelter) {
+                      return (
+                        <div className="col-sm-12 shelter-block mt-4">
+                          <h2>Contact details</h2>
+                          <div className='shelter' key={shelter.id}>
+                            <p className='name'>Shelter: <a href={'/shelter/' + shelter.id}>{shelter.name}</a></p>
+                            <p className='email'>Email: <a href={'mailto:' + shelter.email}>{ shelter.email}</a></p>
+                            <p className='phone_number'>Phone Number: {shelter.phone_number}</p>
+                          </div>
                         </div>
-                      </div>
-                    )}
-                  }
-                )}
-            </div>
-          </section>
-        )}}
-        )}
+                      )}
+                    }
+                  )}
+              </div>
+            </section>
+          )}}
+          )}
+        </div>
       </div>
     </div>
-  
   )
 
 };

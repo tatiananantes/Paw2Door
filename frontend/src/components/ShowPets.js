@@ -118,84 +118,93 @@ const ShowPets = () => {
   };
 
   return (
-    <>
-      <FormGroup>
-        <Label for="user-postcode">
-          Enter your postcode to find pets near you:
-        </Label>
-        <Input
-          type="text"
-          id="user-postcode"
-          name="user-postcode"
-          placeholder="your postcode"
-          onChange={(e) => setPostcode(e.target.value)}
-        />
-      </FormGroup>
-      <FormGroup>
-        <Label for="species">Species</Label>
-        <Input
-          type="select"
-          id="species"
-          name="species"
-          onChange={(e) => setSpecies(e.target.value)}
-        >
-          <option value="All">All</option>
-          <option value="Dog">Dog</option>
-          <option value="Cat">Cat</option>
-        </Input>
-      </FormGroup>
-      <FormGroup>
-        <Label for="radius">Search radius</Label>
-        <Input
-          type="select"
-          id="radius"
-          name="radius"
-          onChange={(e) => setRadius(e.target.value)}
-        >
-          <option value="All">All</option>
-          <option value="10">10km</option>
-          <option value="25">25km</option>
-          <option value="50">50km</option>
-          <option value="100">100km</option>
-        </Input>
-      </FormGroup>
-      <Button
-        className="btn btn-primary"
-        color="success"
-        onClick={() => getLocation()}
-      >
-        Find pets near me
-      </Button>
-      <div className="all-pets">
-        <h1 className="mt-5">Pets available for adoption</h1>
-        <div className="row">
-          {sortPetsByDistance().map((pet, index) => (
-            <Link
-              to={"/pet/" + pet.id}
-              className="block mt-4 col-sm-4"
-              key={pet.id}
+    <section>
+      <div className="form-search-wrap">
+        <div className="container relative">
+          <FormGroup>
+            <Label for="user-postcode" className="text-white">
+              Enter your postcode to find pets near you:
+            </Label>
+            <Input
+              type="text"
+              id="user-postcode"
+              name="user-postcode"
+              placeholder="your postcode"
+              onChange={(e) => setPostcode(e.target.value)}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label for="species" className="text-white">Species</Label>
+            <Input
+              type="select"
+              id="species"
+              name="species"
+              onChange={(e) => setSpecies(e.target.value)}
             >
-              <div className="pet">
-                <div className="object-wrap">
-                  {pet.image == null ? (
-                    <img
-                      src="http://localhost:8000/images/paw.png"
-                      className="img-fluid"
-                    ></img>
-                  ) : (
-                    <img src={pet.image} className="img-fluid img-sizer"></img>
-                  )}
-                </div>
+              <option value="All">All</option>
+              <option value="Dog">Dog</option>
+              <option value="Cat">Cat</option>
+            </Input>
+          </FormGroup>
+          <FormGroup>
+            <Label for="radius" className="text-white">Search radius</Label>
+            <Input
+              type="select"
+              id="radius"
+              name="radius"
+              onChange={(e) => setRadius(e.target.value)}
+            >
+              <option value="All">All</option>
+              <option value="10">10km</option>
+              <option value="25">25km</option>
+              <option value="50">50km</option>
+              <option value="100">100km</option>
+            </Input>
+          </FormGroup>
+          <Button
+            className="btn btn-primary mt-3"
+            color="warning"
+            onClick={() => getLocation()}
+          >
+            Find Pets
+          </Button>
+        </div>
+
+      </div>
+
+      <div className="all-pets pb-5">
+        <div className="container">
+          <h1 className="pt-5 pb-3 text-center">Pets looking for a new home</h1>
+          <div className="row">
+            {sortPetsByDistance().map((pet, index) => (
+              <div className="col-sm-4" key={pet.id}>
+                <Link
+                  to={"/pet/" + pet.id}
+                  className="block pet mt-4"
+                >
+                  <div className="object-wrap">
+                    {pet.image == null ? (
+                      <img
+                        src="/images/paw.png"
+                        className="img-fluid"
+                      ></img>
+                    ) : (
+                      <img src={pet.image} className="img-fluid img-sizer"></img>
+                    )}
+                  </div>
+                  <div className="text-wrap">
+                    <p><strong>{pet.name}</strong></p>
+                    {location != undefined ? (
+                      <p className="distance">{parseInt(pet.km)}km away</p>
+                    ) : null}
+                  </div>
+                </Link>
               </div>
-              <p>{pet.name}</p>
-              {location != undefined ? (
-                <p>{parseInt(pet.km)}km from you</p>
-              ) : null}
-            </Link>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
-    </>
+    </section>
   );
 };
 
