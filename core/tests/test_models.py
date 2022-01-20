@@ -6,7 +6,7 @@ from ..models import Shelter, Pet
 class ShelterModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
-        Shelter.objects.create(name="Pet Shelter", email="pete@petshelter.com", password="supersecret123", phone_number="0000000000")
+        Shelter.objects.create(name="Pet Shelter", email="pete@petshelter.com", password="supersecret123", phone_number="0000000000", postcode="PE150FB", longitude="0.098758", latitude="52.490156")
 
     def test_name_label(self):
         shelter = Shelter.objects.get(id=1)
@@ -38,11 +38,11 @@ class ShelterModelTest(TestCase):
         max_length = shelter._meta.get_field('name').max_length
         self.assertEqual(max_length, 100)
 
-class PetModeTest(TestCase):
+class PetModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
-        shelter_obj = Shelter.objects.create(name="Pet Shelter", email="pete@petshelter.com", password="supersecret123", phone_number="0000000000")
-        Pet.objects.create(shelter=shelter_obj, name="Sniffles", image="/static/images/sniffles.jpg")
+        shelter_obj = Shelter.objects.create(name="Pet Shelter", email="pete@petshelter.com", password="supersecret123", phone_number="0000000000", postcode="PE150FB", longitude="0.098758", latitude="52.490156")
+        Pet.objects.create(shelter=shelter_obj, name="Sniffles", image="/static/images/sniffles.jpg", age="6", species="Dog", gender="Female",  bio="I like walks")
 
     def test_name_label(self):
         pet = Pet.objects.get(id=1)

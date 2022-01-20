@@ -1,28 +1,29 @@
 import React, { Component, useState } from "react";
-import { Link, Navigate } from 'react-router-dom';
-import { useSelector, connect } from 'react-redux';
-import { login } from '../actions/auth';
-import '../App.css';
+import { Link, Navigate } from "react-router-dom";
+import { useSelector, connect } from "react-redux";
+import { login } from "../actions/auth";
+import "../App.css";
 import axios from "axios";
 
 const LoginForm = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
-    email: '',
-    password: ''
+    email: "",
+    password: "",
   });
 
   const { email, password } = formData;
 
-  const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value })
+  const onChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const onSubmit = e => {
-    e.preventDefault()
+  const onSubmit = (e) => {
+    e.preventDefault();
 
     login(email, password);
   };
 
-  if (useSelector(state => state.auth.isAuthenticated)) {
-    return <Navigate to='/'/>
+  if (useSelector((state) => state.auth.isAuthenticated)) {
+    return <Navigate to="/" />;
   }
 
   return (
@@ -63,8 +64,8 @@ const LoginForm = ({ login, isAuthenticated }) => {
   );
 };
 
-const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
 export default connect(mapStateToProps, { login })(LoginForm);
