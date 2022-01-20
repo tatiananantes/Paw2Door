@@ -128,6 +128,7 @@ class SignUpForm extends Component {
         </div>
         {this.state.modal ? (
           <SignUpFormModal
+            role="dialog"
             activeItem={this.state.activeItem}
             toggle={this.toggle}
             onSave={this.getLocation}

@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import "../App.css";
 import axios from "axios";
 import _ from "underscore";
-import { Button, FormGroup, Input, Label } from "reactstrap";
+import { Button, FormGroup, Input, Label, Form } from "reactstrap";
+
 const haversine = require("haversine");
 const sortByDistance = require("sort-by-distance");
 
@@ -87,7 +88,6 @@ const ShowPets = () => {
       });
       return pet;
     });
-
     return filterBySpecies(_.sortBy(pets_distance, "km"));
   };
 
